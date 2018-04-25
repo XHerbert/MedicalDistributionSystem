@@ -10,6 +10,11 @@ namespace MedicalDistributionSystem.Controllers
     {
         public ActionResult Index()
         {
+            using (var db = new MedicalDistributionSystem.Data.MDDbContext())
+            {
+                db.Database.Connection.Open();
+                var st = db.Database.Connection.State;
+            }
             return View();
         }
 
