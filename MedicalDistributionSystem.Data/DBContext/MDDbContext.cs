@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalDistributionSystem.Domain.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -7,16 +8,22 @@ using System.Threading.Tasks;
 
 namespace MedicalDistributionSystem.Data
 {
-    public class MDDbContext:DbContext
+    public class MDDbContext : DbContext
     {
         public MDDbContext()
-            :base(GetConnection())
+            : base(GetConnection())
         {
             this.Configuration.AutoDetectChangesEnabled = false;
             this.Configuration.ValidateOnSaveEnabled = false;
             this.Configuration.LazyLoadingEnabled = false;
             this.Configuration.ProxyCreationEnabled = false;
         }
+
+        public DbSet<Member> Members { get; set; }
+        public DbSet<Proxy> Proxies { get; set; }
+        public DbSet<HardWare> HardWares { get; set; }
+        public DbSet<Commission> Commissions { get; set; }
+        public DbSet<MedicalRecord> MedicalRecords { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

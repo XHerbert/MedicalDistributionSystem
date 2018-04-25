@@ -8,8 +8,8 @@ namespace MedicalDistributionSystem.Domain.Interface
 {
     public interface ICreationAudited
     {
-        string F_Id { get; set; }
-        string F_CreatorUserId { get; set; }
-        DateTime? F_CreatorTime { get; set; }
+        int Id { get; set; }
+        int CreatorUserId { get; set; }
+        DateTime? CreatorTime { get; set; }
     }
 }

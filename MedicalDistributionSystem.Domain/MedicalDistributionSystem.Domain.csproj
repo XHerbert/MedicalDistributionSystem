@@ -40,15 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\Commission.cs" />
+    <Compile Include="Entity\HardWare.cs" />
+    <Compile Include="Entity\MedicalRecord.cs" />
+    <Compile Include="Entity\Member.cs" />
+    <Compile Include="Entity\Proxy.cs" />
     <Compile Include="Interface\ICreationAudited.cs" />
     <Compile Include="Interface\IDeleteAudited.cs" />
     <Compile Include="Interface\IEntity.cs" />
     <Compile Include="Interface\IModificationAudited.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Entity\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

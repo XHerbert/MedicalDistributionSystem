@@ -8,8 +8,8 @@ namespace MedicalDistributionSystem.Domain.Interface
 {
     public interface IModificationAudited
     {
-        string F_Id { get; set; }
-        string F_LastModifyUserId { get; set; }
-        DateTime? F_LastModifyTime { get; set; }
+        int Id { get; set; }
+        int LastModifyUserId { get; set; }
+        DateTime? LastModifyTime { get; set; }
     }
 }
