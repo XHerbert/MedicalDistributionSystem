@@ -1,6 +1,7 @@
 ﻿using MedicalDistributionSystem.Domain.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,7 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// <summary>
         /// 电话
         /// </summary>
+        [MaxLength(11)]
         public string Mobile { get; set; }
         /// <summary>
         /// 密码
@@ -47,7 +49,7 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// <summary>
         /// 
         /// </summary>
-        public bool? DeleteMark { get; set; }
+        public bool? DeleteMark { get; set; } = false;
         /// <summary>
         /// 
         /// </summary>

@@ -10,7 +10,13 @@ namespace MedicalDistributionSystem.Domain.Interface
     {
         public void Create()
         {
-
+            var entity = this as ICreationAudited;
+            //var LoginInfo = OperatorProvider.Provider.GetCurrent();
+            //if (LoginInfo != null)
+            //{
+            //    entity.CreatorUserId = LoginInfo.UserId;
+            //}
+            entity.CreatorTime = DateTime.Now;
         }
 
         public void Modify()

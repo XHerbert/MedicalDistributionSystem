@@ -20,11 +20,11 @@ namespace MedicalDistributionSystem.Domain.Enums
             /// <summary>
             /// 二级代理
             /// </summary>
-            LevelTwo =1,
+            LevelTwo = 1,
             /// <summary>
             /// 三级代理
             /// </summary>
-            LevelThree =2
+            LevelThree = 2
         }
 
         /// <summary>
@@ -35,11 +35,26 @@ namespace MedicalDistributionSystem.Domain.Enums
             /// <summary>
             /// 下属会员消费
             /// </summary>
-            FromMember =0,
+            FromMember = 0,
             /// <summary>
             /// 下属代理抽成
             /// </summary>
             FromProxy = 1
+        }
+
+        /// <summary>
+        /// 账户类型
+        /// </summary>
+        public enum AccountType
+        {
+            /// <summary>
+            /// 会员（病人）
+            /// </summary>
+            MemberType = 0,
+            /// <summary>
+            /// 代理
+            /// </summary>
+            ProxyType = 1
         }
     }
 }

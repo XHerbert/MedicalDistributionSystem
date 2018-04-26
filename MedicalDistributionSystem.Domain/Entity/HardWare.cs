@@ -47,7 +47,7 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// <summary>
         /// 
         /// </summary>
-        public bool? DeleteMark { get; set; }
+        public bool? DeleteMark { get; set; } = false;
         /// <summary>
         /// 
         /// </summary>

@@ -1,6 +1,7 @@
 ﻿using MedicalDistributionSystem.Domain.Interface;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,13 +18,22 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// </summary>
         public int Id { get; set; }
         /// <summary>
+        /// 持有硬件
+        /// </summary>
+        public ICollection<HardWare> HardWares { get; set; }
+        /// <summary>
         /// 姓名
         /// </summary>
         public string ProxyName { get; set; }
         /// <summary>
         /// 电话
         /// </summary>
+        [MaxLength(11)]
         public string Mobile { get; set; }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string Password { get; set; }
         /// <summary>
         /// 省份
         /// </summary>
@@ -43,7 +53,7 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// <summary>
         /// 佣金比例
         /// </summary>
-        public decimal BackMoneyPercent { get; set; }
+        public double BackMoneyPercent { get; set; }
         /// <summary>
         /// 代理级别
         /// </summary>
@@ -55,7 +65,7 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// <summary>
         /// 佣金记录
         /// </summary>
-        public ICollection<Commission> Commisions { get; set; }
+        public ICollection<Commission> Commissions { get; set; }
         /// <summary>
         /// 上级代理Id
         /// </summary>
@@ -75,7 +85,7 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// <summary>
         /// 
         /// </summary>
-        public bool? DeleteMark { get; set; }
+        public bool? DeleteMark { get; set; } = false;
         /// <summary>
         /// 
         /// </summary>
