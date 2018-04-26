@@ -8,42 +8,26 @@ using System.Threading.Tasks;
 namespace MedicalDistributionSystem.Domain.Entity
 {
     /// <summary>
-    /// 会员（病人）
+    /// 医生
     /// </summary>
-    public class Member : IEntity<Member>, ICreationAudited, IModificationAudited, IDeleteAudited
+    public class Doctor : IEntity<Doctor>, ICreationAudited, IModificationAudited, IDeleteAudited
     {
         /// <summary>
-        /// 会员Id
+        /// 医生Id
         /// </summary>
         public int Id { get; set; }
         /// <summary>
-        /// 所属代理
+        /// 姓名
         /// </summary>
-        public int ProxyId { get; set; }
+        public string DoctorName { get; set; }
         /// <summary>
-        /// 会员电话（账号）
+        /// 电话
         /// </summary>
-        public string mobile { get; set; }
+        public string Mobile { get; set; }
         /// <summary>
-        /// 会员姓名
+        /// 密码
         /// </summary>
-        public string MemberName { get; set; }
-        /// <summary>
-        /// 会员性别
-        /// </summary>
-        public short Gender { get; set; }
-        /// <summary>
-        /// 地址
-        /// </summary>
-        public string Location { get; set; }
-        /// <summary>
-        /// 备注
-        /// </summary>
-        public string Remark { get; set; }
-        /// <summary>
-        /// 会员病历(消费记录)
-        /// </summary>
-        public ICollection<MedicalRecord> MedicalRecords { get; set; }
+        public string Password { get; set; }
         /// <summary>
         /// 
         /// </summary>

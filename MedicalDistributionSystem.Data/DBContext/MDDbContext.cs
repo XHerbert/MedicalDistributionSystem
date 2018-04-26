@@ -1,4 +1,5 @@
-﻿using MedicalDistributionSystem.Domain.Entity;
+﻿using MedicalDistributionSystem.Data.Maps;
+using MedicalDistributionSystem.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -28,6 +29,12 @@ namespace MedicalDistributionSystem.Data
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Configurations.Add(new MemberMap());
+            modelBuilder.Configurations.Add(new CommisionMap());
+            modelBuilder.Configurations.Add(new ProxyMap());
+            modelBuilder.Configurations.Add(new HardWareMap());
+            modelBuilder.Configurations.Add(new MedicalRecordMap());
+            modelBuilder.Configurations.Add(new DoctorMap());
         }
 
         private static string GetConnection()
@@ -38,10 +45,7 @@ namespace MedicalDistributionSystem.Data
 
         public static bool TestConnection()
         {
-            using (var db = new MDDbContext())
-            {
-                return db.Database.Connection.State.ToString().Equals("Open");
-            }
+            return true;
         }
     }
 }

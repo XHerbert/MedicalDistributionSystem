@@ -51,9 +51,13 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// <summary>
         /// 下属会员
         /// </summary>
-        public List<Member> ProxyMembers { get; set; }
+        public ICollection<Member> ProxyMembers { get; set; }
         /// <summary>
-        /// 
+        /// 佣金记录
+        /// </summary>
+        public ICollection<Commission> Commisions { get; set; }
+        /// <summary>
+        /// 上级代理Id
         /// </summary>
         public int CreatorUserId { get; set; }
         /// <summary>

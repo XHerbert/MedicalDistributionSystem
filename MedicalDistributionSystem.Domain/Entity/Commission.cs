@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MedicalDistributionSystem.Domain.Entity
 {
     /// <summary>
-    /// 佣金流水
+    /// 佣金流水 (一条佣金流水记录只属于一个代理人)
     /// </summary>
     public class Commission : IEntity<Commission>, ICreationAudited, IModificationAudited, IDeleteAudited
     {

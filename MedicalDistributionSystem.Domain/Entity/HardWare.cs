@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MedicalDistributionSystem.Domain.Entity
 {
     /// <summary>
-    /// 硬件
+    /// 硬件 （一个硬件Id对应一个代理人）
     /// </summary>
     public class HardWare : IEntity<HardWare>, ICreationAudited, IModificationAudited, IDeleteAudited
     {

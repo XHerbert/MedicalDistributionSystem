@@ -41,10 +41,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\Commission.cs" />
+    <Compile Include="Entity\Doctor.cs" />
     <Compile Include="Entity\HardWare.cs" />
     <Compile Include="Entity\MedicalRecord.cs" />
     <Compile Include="Entity\Member.cs" />
     <Compile Include="Entity\Proxy.cs" />
+    <Compile Include="Enums\MedicalEnums.cs" />
     <Compile Include="Interface\ICreationAudited.cs" />
     <Compile Include="Interface\IDeleteAudited.cs" />
     <Compile Include="Interface\IEntity.cs" />

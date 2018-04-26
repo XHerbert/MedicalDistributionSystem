@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace MedicalDistributionSystem.Domain.Entity
 {
     /// <summary>
-    /// 病历（消费记录）
+    /// 病历（消费记录）（一条病历只属于一个会员）
     /// </summary>
     public class MedicalRecord : IEntity<MedicalRecord>, ICreationAudited, IModificationAudited, IDeleteAudited
     {
@@ -20,6 +20,10 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// 会员（病人）Id
         /// </summary>
         public int MemberId { get; set; }
+        /// <summary>
+        /// 就诊医生
+        /// </summary>
+        public int DoctorId { get; set; }
         /// <summary>
         /// 就医时间
         /// </summary>
