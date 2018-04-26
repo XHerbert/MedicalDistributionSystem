@@ -1,4 +1,5 @@
 ﻿using MedicalDistributionSystem.Data.Maps;
+using MedicalDistributionSystem.Domain.App;
 using MedicalDistributionSystem.Domain.Entity;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace MedicalDistributionSystem.Data
         public DbSet<HardWare> HardWares { get; set; }
         public DbSet<Commission> Commissions { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
-
+        public DbSet<AccountToken> AccountTokens { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,6 +36,7 @@ namespace MedicalDistributionSystem.Data
             modelBuilder.Configurations.Add(new HardWareMap());
             modelBuilder.Configurations.Add(new MedicalRecordMap());
             modelBuilder.Configurations.Add(new DoctorMap());
+            modelBuilder.Configurations.Add(new AccountTokenMap());
         }
 
         private static string GetConnection()

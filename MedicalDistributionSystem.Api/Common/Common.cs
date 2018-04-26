@@ -5,11 +5,18 @@ using System.Web;
 
 namespace MedicalDistributionSystem.Api.Common
 {
+    /// <summary>
+    /// 公共类库
+    /// </summary>
     public class Common
     {
-        public static string CreateGuid()
+        /// <summary>
+        /// 产生Token
+        /// </summary>
+        /// <returns></returns>
+        public static string CreateToken()
         {
-            return Guid.NewGuid().ToString();
+            return Guid.NewGuid().ToString().Trim().Replace("-","").ToUpper();
         }
     }
 }

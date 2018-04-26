@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App\AccountToken.cs" />
     <Compile Include="Entity\Commission.cs" />
     <Compile Include="Entity\Doctor.cs" />
     <Compile Include="Entity\HardWare.cs" />

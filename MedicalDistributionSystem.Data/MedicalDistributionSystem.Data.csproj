@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="DBContext\MDDbContext.cs" />
     <Compile Include="DBContext\MedicalInitializer.cs" />
+    <Compile Include="Maps\AccountTokenMap.cs" />
     <Compile Include="Maps\CommisionMap.cs" />
     <Compile Include="Maps\DoctorMap.cs" />
     <Compile Include="Maps\HardWareMap.cs" />

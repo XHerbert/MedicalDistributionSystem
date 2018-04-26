@@ -1,5 +1,6 @@
 ﻿using MedicalDistributionSystem.Api.Common;
 using MedicalDistributionSystem.Data;
+using MedicalDistributionSystem.Domain.App;
 using MedicalDistributionSystem.Domain.Entity;
 using MedicalDistributionSystem.Domain.Enums;
 using System;
@@ -33,7 +34,20 @@ namespace MedicalDistributionSystem.Api.Controllers
                     var proxy = db.Proxies.Where(p => p.DeleteMark == false && p.Mobile == account.Trim() && p.Password == password).FirstOrDefault();
                     if (proxy != null)
                     {
-                        result.Data = proxy;
+                        var token = new AccountToken();
+                        token.Token = Common.Common.CreateToken();
+                        token.AccountType = (int)Medical.AccountType.ProxyType;
+                        token.Account = proxy.Mobile;
+                        token.CreatorTime = DateTime.Now;
+                        db.Entry<AccountToken>(token).State = System.Data.Entity.EntityState.Added;
+                        db.AccountTokens.Add(token);
+                        db.SaveChanges();
+                        var data = new
+                        {
+                            proxy = proxy,
+                            token = token.Token
+                        };
+                        result.Data = data;
                     }
                     else
                     {
@@ -48,7 +62,20 @@ namespace MedicalDistributionSystem.Api.Controllers
                     var member = db.Members.Where(m => m.DeleteMark == false && m.Mobile == account.Trim() && m.Password == password).FirstOrDefault();
                     if (member != null)
                     {
-                        result.Data = member;
+                        var token = new AccountToken();
+                        token.Token = Common.Common.CreateToken();
+                        token.AccountType = (int)Medical.AccountType.MemberType;
+                        token.Account = member.Mobile;
+                        token.CreatorTime = DateTime.Now;
+                        db.Entry<AccountToken>(token).State = System.Data.Entity.EntityState.Added;
+                        db.AccountTokens.Add(token);
+                        db.SaveChanges();
+                        var data = new
+                        {
+                            member = member,
+                            token = token.Token
+                        };
+                        result.Data = data;
                     }
                     else
                     {
