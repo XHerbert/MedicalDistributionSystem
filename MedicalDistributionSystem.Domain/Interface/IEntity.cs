@@ -21,12 +21,16 @@ namespace MedicalDistributionSystem.Domain.Interface
 
         public void Modify()
         {
-
+            var entity = this as IModificationAudited;
+            entity.LastModifyTime = DateTime.Now;
+            entity.LastModifyUserId = 0;
         }
 
         public void Remove()
         {
-
+            var entity = this as IDeleteAudited;
+            entity.DeleteMark = true;
+            entity.DeleteTime = DateTime.Now;
         }
     }
 }
