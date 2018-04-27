@@ -1,11 +1,15 @@
-﻿using MedicalDistributionSystem.Api.Common;
+﻿//==============================================================
+//  作者：徐洪波  (xuhb@foxmail.com)
+//  时间：2018/4/26 9:52:45
+//  文件名：ProxyController
+//  版本：V1.0.0 
+//  说明：
+//==============================================================
+using MedicalDistributionSystem.Api.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 
 namespace MedicalDistributionSystem.Api.Controllers
@@ -13,7 +17,7 @@ namespace MedicalDistributionSystem.Api.Controllers
     /// <summary>
     /// 
     /// </summary>
-    public class ProxyController : ApiController
+    public class ProxyController : BaseController
     {
         /// <summary>
         /// 获取代理列表（分页）
@@ -81,6 +85,8 @@ namespace MedicalDistributionSystem.Api.Controllers
             ApiResult<Proxy> result = new ApiResult<Proxy>();
             using (var db = new MDDbContext())
             {
+                string md5 = MD5Helper.GetMd5Hash(proxy.Password);
+                proxy.Password = md5;
                 proxy.Create();
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Added;
                 db.Proxies.Add(proxy);

@@ -1,21 +1,24 @@
-﻿using MedicalDistributionSystem.Api.Common;
+﻿//==============================================================
+//  作者：徐洪波  (xuhb@foxmail.com)
+//  时间：2018/4/26 9:52:45
+//  文件名：LoginController
+//  版本：V1.0.0 
+//  说明：
+//==============================================================
+using MedicalDistributionSystem.Api.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.App;
-using MedicalDistributionSystem.Domain.Entity;
 using MedicalDistributionSystem.Domain.Enums;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+using System.Linq.Expressions;
 
 namespace MedicalDistributionSystem.Api.Controllers
 {
     /// <summary>
     /// 
     /// </summary>
-    public class LoginController : ApiController
+    public class LoginController : BaseController
     {
         /// <summary>
         /// 代理/会员登录
@@ -31,7 +34,8 @@ namespace MedicalDistributionSystem.Api.Controllers
             {
                 if(type == (int)Medical.AccountType.ProxyType)
                 {
-                    var proxy = db.Proxies.Where(p => p.DeleteMark == false && p.Mobile == account.Trim() && p.Password == password).FirstOrDefault();
+                    Expression<Func<Domain.Entity.Proxy, bool>> where = p => p.DeleteMark == false && p.Mobile == account.Trim() && MD5Helper.VerifyMd5Hash(password, p.Password);
+                    var proxy = db.Proxies.Where(where.Compile()).FirstOrDefault();
                     if (proxy != null)
                     {
                         var token = new AccountToken();

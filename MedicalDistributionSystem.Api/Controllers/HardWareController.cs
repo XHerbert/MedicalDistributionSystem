@@ -1,7 +1,7 @@
 ﻿//==============================================================
 //  作者：徐洪波  (xuhb@foxmail.com)
-//  时间：2018/4/26 9:52:45
-//  文件名：MemberController
+//  时间：2018/4/27 9:52:45
+//  文件名：ProxyController
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
@@ -14,24 +14,21 @@ using System.Web.Http;
 
 namespace MedicalDistributionSystem.Api.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class MemberController : BaseController
+    public class HardWareController : BaseController
     {
         /// <summary>
-        /// 获取会员列表（分页）
+        /// 获取设备列表（分页）
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult<IList<Member>> Get(int pageIndex = 1, int pageSize = 10)
+        public ApiResult<IList<HardWare>> Get(int pageIndex = 1, int pageSize = 10)
         {
-            ApiResult<IList<Member>> result = new ApiResult<IList<Member>>();
+            ApiResult<IList<HardWare>> result = new ApiResult<IList<HardWare>>();
             using (var db = new MDDbContext())
             {
-                var list = (from u in db.Members where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var list = (from u in db.HardWares where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 if (list == null)
                 {
                     result.Code = 500;
@@ -48,18 +45,18 @@ namespace MedicalDistributionSystem.Api.Controllers
         }
 
         /// <summary>
-        /// 获取指定会员
+        /// 获取指定设备硬件
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult<Member> GetSingle(int id)
+        public ApiResult<HardWare> GetSingle(int id)
         {
-            ApiResult<Member> result = new ApiResult<Member>();
-            using (var db= new MDDbContext())
+            ApiResult<HardWare> result = new ApiResult<HardWare>();
+            using (var db = new MDDbContext())
             {
-                var member = db.Members.Find(id);
-                if (null == member)
+                var hardWare = db.HardWares.Find(id);
+                if (null == hardWare)
                 {
                     result.Code = 500;
                     result.Data = null;
@@ -68,44 +65,44 @@ namespace MedicalDistributionSystem.Api.Controllers
                 }
                 else
                 {
-                    result.Data = member;
+                    result.Data = hardWare;
                 }
             }
             return result;
         }
 
         /// <summary>
-        /// 创建会员(由代理操作)
+        /// 创建设备
         /// </summary>
-        /// <param name="member"></param>
+        /// <param name="hardWare"></param>
         /// <returns></returns>
         [HttpPost]
-        public ApiResult<Member> Create(Member member)
+        public ApiResult<HardWare> Create(HardWare hardWare)
         {
-            ApiResult<Member> result = new ApiResult<Member>();
+            ApiResult<HardWare> result = new ApiResult<HardWare>();
             using (var db = new MDDbContext())
             {
-                member.Create();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Added;
-                db.Members.Add(member);
+                hardWare.Create();
+                db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Added;
+                db.HardWares.Add(hardWare);
                 db.SaveChanges();
             }
             return result;
         }
 
         /// <summary>
-        /// 逻辑删除会员
+        /// 逻辑删除设备
         /// </summary>
-        /// <param name="memberId"></param>
+        /// <param name="hardWareId"></param>
         /// <returns></returns>
         [HttpDelete]
-        public ApiResult<bool> Delete(int memberId)
+        public ApiResult<bool> Delete(int hardWareId)
         {
             ApiResult<bool> result = new ApiResult<bool>();
             using (var db = new MDDbContext())
             {
-                var member = db.Members.Find(memberId);
-                if (member == null)
+                var hardWare = db.HardWares.Find(hardWareId);
+                if (hardWare == null)
                 {
                     result.Data = false;
                     result.Code = 404;
@@ -113,8 +110,8 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                member.Remove();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Modified;
+                hardWare.Remove();
+                db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
             return result;

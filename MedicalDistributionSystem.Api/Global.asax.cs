@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using MedicalDistributionSystem.Data;
+using MedicalDistributionSystem.Data.DBContext;
+using System.Data.Entity;
 using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
@@ -18,6 +17,8 @@ namespace MedicalDistributionSystem.Api
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            Database.SetInitializer<MDDbContext>(new MedicalChangesInitializer());
+            Database.SetInitializer<MDDbContext>(new MedicalNotExistInitializer());
         }
     }
 }

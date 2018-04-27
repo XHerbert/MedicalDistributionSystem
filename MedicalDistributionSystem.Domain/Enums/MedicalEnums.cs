@@ -14,17 +14,21 @@ namespace MedicalDistributionSystem.Domain.Enums
         public enum ProxyLevelEnums
         {
             /// <summary>
+            /// 超级管理员
+            /// </summary>
+            LevelSuper = 1,
+            /// <summary>
             /// 一级代理
             /// </summary>
-            LevelOne = 0,
+            LevelOne = 2,
             /// <summary>
             /// 二级代理
             /// </summary>
-            LevelTwo = 1,
+            LevelTwo = 3,
             /// <summary>
             /// 三级代理
             /// </summary>
-            LevelThree = 2
+            LevelThree = 4
         }
 
         /// <summary>

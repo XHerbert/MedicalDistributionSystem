@@ -1,7 +1,7 @@
 ﻿//==============================================================
 //  作者：徐洪波  (xuhb@foxmail.com)
-//  时间：2018/4/26 9:52:45
-//  文件名：MemberController
+//  时间：2018/4/27 9:52:45
+//  文件名：CommissionController
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
@@ -14,24 +14,21 @@ using System.Web.Http;
 
 namespace MedicalDistributionSystem.Api.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class MemberController : BaseController
+    public class CommissionController : BaseController
     {
         /// <summary>
-        /// 获取会员列表（分页）
+        /// 获取佣金流水（分页）
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult<IList<Member>> Get(int pageIndex = 1, int pageSize = 10)
+        public ApiResult<IList<Commission>> Get(int pageIndex = 1, int pageSize = 10)
         {
-            ApiResult<IList<Member>> result = new ApiResult<IList<Member>>();
+            ApiResult<IList<Commission>> result = new ApiResult<IList<Commission>>();
             using (var db = new MDDbContext())
             {
-                var list = (from u in db.Members where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var list = (from u in db.Commissions where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 if (list == null)
                 {
                     result.Code = 500;
@@ -48,18 +45,18 @@ namespace MedicalDistributionSystem.Api.Controllers
         }
 
         /// <summary>
-        /// 获取指定会员
+        /// 获取指定佣金流水
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult<Member> GetSingle(int id)
+        public ApiResult<Commission> GetSingle(int id)
         {
-            ApiResult<Member> result = new ApiResult<Member>();
-            using (var db= new MDDbContext())
+            ApiResult<Commission> result = new ApiResult<Commission>();
+            using (var db = new MDDbContext())
             {
-                var member = db.Members.Find(id);
-                if (null == member)
+                var commission = db.Commissions.Find(id);
+                if (null == commission)
                 {
                     result.Code = 500;
                     result.Data = null;
@@ -68,44 +65,44 @@ namespace MedicalDistributionSystem.Api.Controllers
                 }
                 else
                 {
-                    result.Data = member;
+                    result.Data = commission;
                 }
             }
             return result;
         }
 
         /// <summary>
-        /// 创建会员(由代理操作)
+        /// 创建佣金流水
         /// </summary>
-        /// <param name="member"></param>
+        /// <param name="commission"></param>
         /// <returns></returns>
         [HttpPost]
-        public ApiResult<Member> Create(Member member)
+        public ApiResult<Commission> Create(Commission commission)
         {
-            ApiResult<Member> result = new ApiResult<Member>();
+            ApiResult<Commission> result = new ApiResult<Commission>();
             using (var db = new MDDbContext())
             {
-                member.Create();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Added;
-                db.Members.Add(member);
+                commission.Create();
+                db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Added;
+                db.Commissions.Add(commission);
                 db.SaveChanges();
             }
             return result;
         }
 
         /// <summary>
-        /// 逻辑删除会员
+        /// 逻辑删除佣金流水
         /// </summary>
-        /// <param name="memberId"></param>
+        /// <param name="commissionId"></param>
         /// <returns></returns>
         [HttpDelete]
-        public ApiResult<bool> Delete(int memberId)
+        public ApiResult<bool> Delete(int commissionId)
         {
             ApiResult<bool> result = new ApiResult<bool>();
             using (var db = new MDDbContext())
             {
-                var member = db.Members.Find(memberId);
-                if (member == null)
+                var commission = db.Commissions.Find(commissionId);
+                if (commission == null)
                 {
                     result.Data = false;
                     result.Code = 404;
@@ -113,8 +110,8 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                member.Remove();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Modified;
+                commission.Remove();
+                db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
             return result;

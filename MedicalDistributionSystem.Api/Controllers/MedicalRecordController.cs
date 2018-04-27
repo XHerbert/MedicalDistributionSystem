@@ -1,11 +1,4 @@
-﻿//==============================================================
-//  作者：徐洪波  (xuhb@foxmail.com)
-//  时间：2018/4/26 9:52:45
-//  文件名：MemberController
-//  版本：V1.0.0 
-//  说明：
-//==============================================================
-using MedicalDistributionSystem.Api.Common;
+﻿using MedicalDistributionSystem.Api.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using System.Collections.Generic;
@@ -14,24 +7,21 @@ using System.Web.Http;
 
 namespace MedicalDistributionSystem.Api.Controllers
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    public class MemberController : BaseController
+    public class MedicalRecordController : BaseController
     {
         /// <summary>
-        /// 获取会员列表（分页）
+        /// 获取消费记录/病历（分页）
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult<IList<Member>> Get(int pageIndex = 1, int pageSize = 10)
+        public ApiResult<IList<MedicalRecord>> Get(int pageIndex = 1, int pageSize = 10)
         {
-            ApiResult<IList<Member>> result = new ApiResult<IList<Member>>();
+            ApiResult<IList<MedicalRecord>> result = new ApiResult<IList<MedicalRecord>>();
             using (var db = new MDDbContext())
             {
-                var list = (from u in db.Members where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var list = (from u in db.MedicalRecords where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 if (list == null)
                 {
                     result.Code = 500;
@@ -48,18 +38,18 @@ namespace MedicalDistributionSystem.Api.Controllers
         }
 
         /// <summary>
-        /// 获取指定会员
+        /// 获取指定消费记录/病历
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult<Member> GetSingle(int id)
+        public ApiResult<MedicalRecord> GetSingle(int id)
         {
-            ApiResult<Member> result = new ApiResult<Member>();
-            using (var db= new MDDbContext())
+            ApiResult<MedicalRecord> result = new ApiResult<MedicalRecord>();
+            using (var db = new MDDbContext())
             {
-                var member = db.Members.Find(id);
-                if (null == member)
+                var medicalRecord = db.MedicalRecords.Find(id);
+                if (null == medicalRecord)
                 {
                     result.Code = 500;
                     result.Data = null;
@@ -68,44 +58,44 @@ namespace MedicalDistributionSystem.Api.Controllers
                 }
                 else
                 {
-                    result.Data = member;
+                    result.Data = medicalRecord;
                 }
             }
             return result;
         }
 
         /// <summary>
-        /// 创建会员(由代理操作)
+        /// 创建消费记录/病历
         /// </summary>
-        /// <param name="member"></param>
+        /// <param name="medicalRecord"></param>
         /// <returns></returns>
         [HttpPost]
-        public ApiResult<Member> Create(Member member)
+        public ApiResult<MedicalRecord> Create(MedicalRecord medicalRecord)
         {
-            ApiResult<Member> result = new ApiResult<Member>();
+            ApiResult<MedicalRecord> result = new ApiResult<MedicalRecord>();
             using (var db = new MDDbContext())
             {
-                member.Create();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Added;
-                db.Members.Add(member);
+                medicalRecord.Create();
+                db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Added;
+                db.MedicalRecords.Add(medicalRecord);
                 db.SaveChanges();
             }
             return result;
         }
 
         /// <summary>
-        /// 逻辑删除会员
+        /// 逻辑删除消费记录/病历
         /// </summary>
-        /// <param name="memberId"></param>
+        /// <param name="medicalRecordId"></param>
         /// <returns></returns>
         [HttpDelete]
-        public ApiResult<bool> Delete(int memberId)
+        public ApiResult<bool> Delete(int medicalRecordId)
         {
             ApiResult<bool> result = new ApiResult<bool>();
             using (var db = new MDDbContext())
             {
-                var member = db.Members.Find(memberId);
-                if (member == null)
+                var medicalRecord = db.MedicalRecords.Find(medicalRecordId);
+                if (medicalRecord == null)
                 {
                     result.Data = false;
                     result.Code = 404;
@@ -113,8 +103,8 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                member.Remove();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Modified;
+                medicalRecord.Remove();
+                db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
             return result;
