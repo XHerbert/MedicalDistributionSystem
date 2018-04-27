@@ -5,7 +5,7 @@
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
-using MedicalDistributionSystem.Api.Common;
+using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using System.Collections.Generic;

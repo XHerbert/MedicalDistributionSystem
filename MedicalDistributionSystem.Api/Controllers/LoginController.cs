@@ -5,19 +5,22 @@
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
-using MedicalDistributionSystem.Api.Common;
+
+using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.App;
 using MedicalDistributionSystem.Domain.Enums;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Web.Http;
 
 namespace MedicalDistributionSystem.Api.Controllers
 {
     /// <summary>
     /// 
     /// </summary>
+    [AllowAnonymous]
     public class LoginController : BaseController
     {
         /// <summary>
@@ -39,7 +42,7 @@ namespace MedicalDistributionSystem.Api.Controllers
                     if (proxy != null)
                     {
                         var token = new AccountToken();
-                        token.Token = Common.Common.CreateToken();
+                        token.Token = Common.Infrastructure.CreateToken();
                         token.AccountType = (int)Medical.AccountType.ProxyType;
                         token.Account = proxy.Mobile;
                         token.CreatorTime = DateTime.Now;
@@ -67,7 +70,7 @@ namespace MedicalDistributionSystem.Api.Controllers
                     if (member != null)
                     {
                         var token = new AccountToken();
-                        token.Token = Common.Common.CreateToken();
+                        token.Token = Common.Infrastructure.CreateToken();
                         token.AccountType = (int)Medical.AccountType.MemberType;
                         token.Account = member.Mobile;
                         token.CreatorTime = DateTime.Now;

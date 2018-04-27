@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace MedicalDistributionSystem.Api.Common
+namespace MedicalDistributionSystem.Common
 {
     public class Resource
     {

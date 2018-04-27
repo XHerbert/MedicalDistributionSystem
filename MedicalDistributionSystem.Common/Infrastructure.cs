@@ -1,15 +1,22 @@
-﻿using System;
+﻿//==============================================================
+//  作者：徐洪波  (xuhb@foxmail.com)
+//  时间：2018/4/27 14:17:59
+//  文件名：Infrastructure
+//  版本：V1.0.0 
+//  说明：  
+//==============================================================
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
 
-namespace MedicalDistributionSystem.Api.Common
+namespace MedicalDistributionSystem.Common
 {
     /// <summary>
     /// 公共类库
     /// </summary>
-    public class Common
+    public class Infrastructure
     {
         /// <summary>
         /// 产生Token

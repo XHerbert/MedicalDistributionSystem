@@ -5,6 +5,7 @@
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
+using MedicalDistributionSystem.Api.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ using System.Web.Http;
 
 namespace MedicalDistributionSystem.Api.Controllers
 {
+    [Validate]
     public class BaseController : ApiController
     {
     }

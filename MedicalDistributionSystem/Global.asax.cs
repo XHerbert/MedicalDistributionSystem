@@ -19,7 +19,7 @@ namespace MedicalDistributionSystem
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Database.SetInitializer<MDDbContext>(new MedicalInitializer());
+            Database.SetInitializer<MDDbContext>(new MedicalChangesInitializer());
         }
     }
 }

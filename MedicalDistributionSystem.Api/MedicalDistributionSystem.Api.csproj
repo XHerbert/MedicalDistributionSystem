@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MedicalDistributionSystem.Common">
+      <HintPath>..\MedicalDistributionSystem.Common\bin\Debug\MedicalDistributionSystem.Common.dll</HintPath>
+    </Reference>
     <Reference Include="MedicalDistributionSystem.Data">
       <HintPath>..\MedicalDistributionSystem.Data\bin\Debug\MedicalDistributionSystem.Data.dll</HintPath>
     </Reference>
@@ -223,10 +226,6 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
-    <Compile Include="Common\ApiResult.cs" />
-    <Compile Include="Common\Common.cs" />
-    <Compile Include="Common\MD5.cs" />
-    <Compile Include="Common\Resource.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommissionController.cs" />
     <Compile Include="Controllers\HardWareController.cs" />
@@ -235,6 +234,7 @@
     <Compile Include="Controllers\MedicalRecordController.cs" />
     <Compile Include="Controllers\MemberController.cs" />
     <Compile Include="Controllers\ProxyController.cs" />
+    <Compile Include="Filters\ValidateAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
