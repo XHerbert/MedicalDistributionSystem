@@ -3,6 +3,7 @@ using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using System.Web.Http;
 
 namespace MedicalDistributionSystem.Api.Controllers
@@ -10,7 +11,7 @@ namespace MedicalDistributionSystem.Api.Controllers
     public class MedicalRecordController : BaseController
     {
         /// <summary>
-        /// 获取消费记录/病历（分页）
+        /// 获取消费记录/病历（分页）所有的现金流从这里进入
         /// </summary>
         /// <param name="pageIndex"></param>
         /// <param name="pageSize"></param>
@@ -75,10 +76,39 @@ namespace MedicalDistributionSystem.Api.Controllers
             ApiResult<MedicalRecord> result = new ApiResult<MedicalRecord>();
             using (var db = new MDDbContext())
             {
-                medicalRecord.Create();
-                db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Added;
-                db.MedicalRecords.Add(medicalRecord);
-                db.SaveChanges();
+                using (var trans = new TransactionScope())
+                {
+                    try
+                    {
+                        medicalRecord.Create();
+                        db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Added;
+                        db.MedicalRecords.Add(medicalRecord);
+                        db.SaveChanges();
+
+                        //获取当前会员的上级代理
+                        var p = db.Proxies.Find(medicalRecord.CreatorUserId);
+                        double percent = p.BackMoneyPercent;
+                        switch (p.ProxyLevel)
+                        {
+                            case 1:
+                                break;
+                            case 2:
+                                break;
+                            case 3:
+                                break;
+                            case 4:
+                                break;
+                            default:
+                                break;
+                        }
+                        ////必须调用.Complete()，不然数据不会保存
+                        trans.Complete();
+                    }
+                    catch (System.Exception e)
+                    {
+                        ////出了using代码块如果还没调用Complete()，所有操作就会自动回滚
+                    }
+                }
             }
             return result;
         }
