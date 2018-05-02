@@ -86,13 +86,28 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                     //}
                 }
                 , {
-                    field: 'ProxyLevel', title: '代理级别', width: 100
-                    //templet: function (d) {
-                    //    var stamp = d.UpdateTime.replace(/[^0-9]/ig, "");
-                    //    var date = new Date();
-                    //    date.setTime(stamp);
-                    //    return date.Format("yyyy-MM-dd hh:mm:ss");
-                    //}
+                    field: 'ProxyLevel', title: '代理级别', width: 100,
+                    templet: function (d) {
+                        var proxyLevel = "";
+                        switch (d.ProxyLevel) {
+                            
+                            case 1:
+                                proxyLevel = "超级管理员";
+                                break;
+                            case 2:
+                                proxyLevel = "一级代理";
+                                break;
+                            case 3:
+                                proxyLevel = "二级代理";
+                                break;
+                            case 4:
+                                proxyLevel = "三级代理";
+                                break;
+                            default:
+                                break;
+                        }
+                        return proxyLevel;
+                    }
                 }
                 , {
                     field: 'CreatorUserId', title: '上级Id', width: 80
