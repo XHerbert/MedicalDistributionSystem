@@ -71,13 +71,13 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
               , page: true
               , cols: [[
                   { field: 'Id', title: 'Id', sort: true, width: 80, fixed: 'left' }
-                , { field: 'ProxyName', title: '代理姓名', width: 180 }
-                , { field: 'Mobile', title: '手机号', width: 150 }
+                , { field: 'ProxyName', title: '代理姓名', width: 280 }
+                , { field: 'Mobile', title: '手机号'  }
                 , { field: 'Province', title: '省份', width:150 }
-                , { field: 'City', title: '城市' }
-                , { field: 'CurrentMoney', title: '当前余额', minWidth: 180 }
+                , { field: 'City', title: '城市',width:150 }
+                , { field: 'CurrentMoney', title: '当前余额', minWidth: 150,width:150 }
                 , {
-                    field: 'BackMoneyPercent', title: '提点', width: 180
+                    field: 'BackMoneyPercent', title: '提点', width: 80
                     //templet: function (d) {
                     //    var stamp = d.CreateTime.replace(/[^0-9]/ig, "");
                     //    var date = new Date();
@@ -86,7 +86,7 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                     //}
                 }
                 , {
-                    field: 'ProxyLevel', title: '代理级别', width: 180
+                    field: 'ProxyLevel', title: '代理级别', width: 100
                     //templet: function (d) {
                     //    var stamp = d.UpdateTime.replace(/[^0-9]/ig, "");
                     //    var date = new Date();
@@ -95,7 +95,7 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                     //}
                 }
                 , {
-                    field: 'CreatorUserId', title: '上级Id', width: 60
+                    field: 'CreatorUserId', title: '上级Id', width: 80
                     //templet: function (d) {
                     //    if (d.IsDeleted == true) {
                     //        return '无效'
@@ -103,6 +103,25 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                     //        return '有效'
                     //    }
                     //}, style: "color:#5FB878 ;"
+                },
+                {
+                    field: 'CreatorTime', title: '创建时间', width: 190,
+                    templet: function (d) {
+                        var stamp = d.CreatorTime.replace(/[^0-9]/ig, "");
+                        var date = new Date();
+                        date.setTime(stamp);
+                        return date.Format("yyyy-MM-dd hh:mm:ss");
+                    }
+                },
+                {
+                    field: 'DeleteMark', title: '有效', width: 60,
+                    templet: function (d) {
+                        if (d.DeleteMark == true) {
+                            return '无效'
+                        } else {
+                            return '有效'
+                        }
+                    }, style: "color:#5FB878 ;"
                 },
                 { fixed: 'right', title: "操作", align: 'center', toolbar: '#toolbar', width: 190 }
               ]]
