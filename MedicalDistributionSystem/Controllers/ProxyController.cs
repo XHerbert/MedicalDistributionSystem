@@ -20,25 +20,9 @@ namespace MedicalDistributionSystem.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public ActionResult Index(int pageIndex = 1, int pageSize = 10)
+        public ActionResult Index()
         {
-            ApiResult<IList<Proxy>> result = new ApiResult<IList<Proxy>>();
-            using (var db = new MDDbContext())
-            {
-                var list = (from u in db.Proxies where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                if (list == null)
-                {
-                    result.Code = 500;
-                    result.Data = null;
-                    result.IsSuccess = false;
-                    result.Msg = "";
-                }
-                else
-                {
-                    result.Data = list;
-                }
-            }
-            return Json(result, JsonRequestBehavior.AllowGet);
+            return View();
         }
 
         /// <summary>
@@ -56,7 +40,7 @@ namespace MedicalDistributionSystem.Controllers
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Added;
                 db.Proxies.Add(proxy);
                 db.SaveChanges();
-                result.Data = proxy;
+                //result.Data = proxy;
             }
 
             return Json(result);
@@ -77,7 +61,7 @@ namespace MedicalDistributionSystem.Controllers
                 //proxy.Remove();
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
-                result.Data = true;
+                //result.Data = true;
             }
             return Json(result);
         }

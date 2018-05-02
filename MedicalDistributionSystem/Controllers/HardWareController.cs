@@ -29,12 +29,12 @@ namespace MedicalDistributionSystem.Controllers
                 {
                     result.Code = 500;
                     result.Data = null;
-                    result.IsSuccess = false;
+                    //result.IsSuccess = false;
                     result.Msg = "";
                 }
                 else
                 {
-                    result.Data = list;
+                    //result.Data = list;
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -55,7 +55,7 @@ namespace MedicalDistributionSystem.Controllers
                 db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Added;
                 db.HardWares.Add(hardWare);
                 db.SaveChanges();
-                result.Data = hardWare;
+                //result.Data = hardWare;
             }
 
             return Json(result);
@@ -97,7 +97,7 @@ namespace MedicalDistributionSystem.Controllers
                 //hardWare.Remove();
                 db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
-                result.Data = true;
+                //result.Data = true;
             }
             return Json(result);
         }

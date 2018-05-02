@@ -18,7 +18,7 @@ namespace MedicalDistributionSystem
                     //{
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
-                        // resolve correctly. You can workaround this by providing your own code to determine the root URL.
+                        // resolve correctly. You can workaround this by providing your own Code to determine the root URL.
                         //
                         //c.RootUrl(req => GetRootUrlFromAppConfig());
 
@@ -196,7 +196,7 @@ namespace MedicalDistributionSystem
                         //
                         //c.InjectJavaScript(thisAssembly, "Swashbuckle.Dummy.SwaggerExtensions.testScript1.js");
 
-                        // The swagger-ui renders boolean data types as a dropdown. By default, it provides "true" and "false"
+                        // The swagger-ui renders boolean Data types as a dropdown. By default, it provides "true" and "false"
                         // strings as the possible choices. You can use this option to change these to something else,
                         // for example 0 and 1.
                         //

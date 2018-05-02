@@ -31,11 +31,11 @@ namespace MedicalDistributionSystem.Controllers
                 {
                     result.Code = 500;
                     result.Data = null;
-                    result.IsSuccess = false;
+                    //result.IsSuccess = false;
                     result.Msg = "";
                 }else
                 {
-                    result.Data = list;
+                    //result.Data = list;
                 }
             }
             return Json(result,JsonRequestBehavior.AllowGet);

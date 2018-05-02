@@ -29,12 +29,12 @@ namespace MedicalDistributionSystem.Controllers
                 {
                     result.Code = 500;
                     result.Data = null;
-                    result.IsSuccess = false;
+                    //result.IsSuccess = false;
                     result.Msg = "";
                 }
                 else
                 {
-                    result.Data = list;
+                    //result.Data = list;
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
@@ -55,7 +55,7 @@ namespace MedicalDistributionSystem.Controllers
                 db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Added;
                 db.Commissions.Add(commission);
                 db.SaveChanges();
-                result.Data = commission;
+                //result.Data = commission;
             }
 
             return Json(result);
@@ -76,7 +76,7 @@ namespace MedicalDistributionSystem.Controllers
                 //commission.Remove();
                 db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
-                result.Data = true;
+                //result.Data = true;
             }
             return Json(result);
         }
