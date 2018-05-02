@@ -110,14 +110,14 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                     }
                 }
                 , {
-                    field: 'CreatorUserId', title: '上级Id', width: 80
-                    //templet: function (d) {
-                    //    if (d.IsDeleted == true) {
-                    //        return '无效'
-                    //    } else {
-                    //        return '有效'
-                    //    }
-                    //}, style: "color:#5FB878 ;"
+                    field: 'CreatorUserId', title: '上级Id', width: 80,
+                    templet: function (d) {
+                        if (d.CreatorUserId == 0) {
+                            return '--'
+                        } else {
+                            return d.CreatorUserId
+                        }
+                    }, style: "color:#777 ;font-weight:bold"
                 },
                 {
                     field: 'CreatorTime', title: '创建时间', width: 190,
