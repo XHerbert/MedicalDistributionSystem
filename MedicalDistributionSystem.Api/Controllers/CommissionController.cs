@@ -83,7 +83,7 @@ namespace MedicalDistributionSystem.Api.Controllers
             ApiResult<Commission> result = new ApiResult<Commission>();
             using (var db = new MDDbContext())
             {
-                commission.Create();
+                commission.Create(commission.ProxyId);
                 db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Added;
                 db.Commissions.Add(commission);
                 db.SaveChanges();
@@ -111,7 +111,7 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                commission.Remove();
+                commission.Remove(0);
                 db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }

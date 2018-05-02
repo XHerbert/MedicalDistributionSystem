@@ -11,11 +11,11 @@ namespace MedicalDistributionSystem
     {
         public static void Register()
         {
-            var thisAssembly = typeof(SwaggerConfig).Assembly;
+            //var thisAssembly = typeof(SwaggerConfig).Assembly;
 
-            GlobalConfiguration.Configuration
-                .EnableSwagger(c =>
-                    {
+            //GlobalConfiguration.Configuration
+                //.EnableSwagger(c =>
+                    //{
                         // By default, the service root url is inferred from the request used to access the docs.
                         // However, there may be situations (e.g. proxy and load-balanced environments) where this does not
                         // resolve correctly. You can workaround this by providing your own code to determine the root URL.
@@ -32,7 +32,7 @@ namespace MedicalDistributionSystem
                         // hold additional metadata for an API. Version and title are required but you can also provide
                         // additional fields by chaining methods off SingleApiVersion.
                         //
-                        c.SingleApiVersion("v1", "MedicalDistributionSystem");
+                        //c.SingleApiVersion("v1", "MedicalDistributionSystem");
 
                         // If you want the output Swagger docs to be indented properly, enable the "PrettyPrint" option.
                         //
@@ -100,8 +100,8 @@ namespace MedicalDistributionSystem
                         // Xml comments (http://msdn.microsoft.com/en-us/library/b2s063f7(v=vs.110).aspx), you can incorporate
                         // those comments into the generated docs and UI. You can enable this by providing the path to one or
                         // more Xml comment files.
-                        string path = string.Format("{0}/bin/MedicalDistributionSystem.XML", System.AppDomain.CurrentDomain.BaseDirectory);
-                        c.IncludeXmlComments(path);
+                        //string path = string.Format("{0}/bin/MedicalDistributionSystem.XML", System.AppDomain.CurrentDomain.BaseDirectory);
+                        //c.IncludeXmlComments(path);
 
                         // Swashbuckle makes a best attempt at generating Swagger compliant JSON schemas for the various types
                         // exposed in your API. However, there may be occasions when more control of the output is needed.
@@ -176,9 +176,9 @@ namespace MedicalDistributionSystem
                         // alternative implementation for ISwaggerProvider with the CustomProvider option.
                         //
                         //c.CustomProvider((defaultProvider) => new CachingSwaggerProvider(defaultProvider));
-                    })
-                .EnableSwaggerUi(c =>
-                    {
+               //     })
+                //.EnableSwaggerUi(c =>
+                    //{
                         // Use the "DocumentTitle" option to change the Document title.
                         // Very helpful when you have multiple Swagger pages open, to tell them apart.
                         //
@@ -249,7 +249,7 @@ namespace MedicalDistributionSystem
                         // "apiKeyIn" can either be "query" or "header"
                         //
                         //c.EnableApiKeySupport("apiKey", "header");
-                    });
+                   // });
         }
     }
 }

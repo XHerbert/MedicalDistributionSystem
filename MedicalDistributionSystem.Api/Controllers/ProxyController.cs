@@ -8,6 +8,7 @@
 using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
@@ -26,7 +27,7 @@ namespace MedicalDistributionSystem.Api.Controllers
         /// <param name="pageSize"></param>
         /// <returns></returns>
         [HttpGet]
-        public ApiResult<IList<Proxy>> Get(int pageIndex = 1, int pageSize = 10)
+        public string Get(int pageIndex = 1, int pageSize = 10)
         {
             ApiResult<IList<Proxy>> result = new ApiResult<IList<Proxy>>();
             using (var db = new MDDbContext())
@@ -44,7 +45,7 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Data = list;
                 }
             }
-            return result;
+            return JsonConvert.SerializeObject(result);
         }
 
         /// <summary>
@@ -87,7 +88,7 @@ namespace MedicalDistributionSystem.Api.Controllers
             {
                 string md5 = MD5Helper.GetMd5Hash(proxy.Password);
                 proxy.Password = md5;
-                proxy.Create();
+                proxy.Create(proxy.CreatorUserId);
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Added;
                 db.Proxies.Add(proxy);
                 db.SaveChanges();
@@ -115,7 +116,17 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                proxy.Remove();
+                var subProxies = db.Proxies.Where(p => p.CreatorUserId == proxyId && p.DeleteMark == false);
+                var hardWares = db.HardWares.Where(h => h.ProxyId == proxyId && h.DeleteMark == false);
+                if (proxy.ProxyMembers.Any() || subProxies.Any() || hardWares.Any())
+                {
+                    result.Data = false;
+                    result.Code = 401;
+                    result.IsSuccess = false;
+                    result.Msg = Resource.REFERENCE_EXISTS;
+                    return result;
+                }
+                proxy.Remove(proxy.CreatorUserId);
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }

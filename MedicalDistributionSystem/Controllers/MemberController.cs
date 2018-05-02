@@ -52,7 +52,7 @@ namespace MedicalDistributionSystem.Controllers
             ApiResult<Member> result = new ApiResult<Member>();
             using (var db = new MDDbContext())
             {
-                member.Create();
+                //member.Create();
                 db.Entry<Member>(member).State = System.Data.Entity.EntityState.Added;
                 db.Members.Add(member);
                 db.SaveChanges();
@@ -68,7 +68,7 @@ namespace MedicalDistributionSystem.Controllers
             using (var db = new MDDbContext())
             {
                 var member = db.Members.Find(memberId);
-                member.Remove();
+                //member.Remove();
                 db.Entry<Member>(member).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
             }

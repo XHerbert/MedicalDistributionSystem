@@ -52,7 +52,7 @@ namespace MedicalDistributionSystem.Controllers
             ApiResult<Proxy> result = new ApiResult<Proxy>();
             using (var db = new MDDbContext())
             {
-                proxy.Create();
+                //proxy.Create();
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Added;
                 db.Proxies.Add(proxy);
                 db.SaveChanges();
@@ -74,7 +74,7 @@ namespace MedicalDistributionSystem.Controllers
             using (var db = new MDDbContext())
             {
                 var proxy = db.Proxies.Find(proxyId);
-                proxy.Remove();
+                //proxy.Remove();
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
                 result.Data = true;

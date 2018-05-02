@@ -82,7 +82,7 @@ namespace MedicalDistributionSystem.Api.Controllers
             ApiResult<HardWare> result = new ApiResult<HardWare>();
             using (var db = new MDDbContext())
             {
-                hardWare.Create();
+                hardWare.Create(hardWare.ProxyId);
                 db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Added;
                 db.HardWares.Add(hardWare);
                 db.SaveChanges();
@@ -110,7 +110,7 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                hardWare.Remove();
+                hardWare.Remove(hardWare.ProxyId);
                 db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }

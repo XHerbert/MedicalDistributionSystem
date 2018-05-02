@@ -51,7 +51,7 @@ namespace MedicalDistributionSystem.Controllers
             ApiResult<HardWare> result = new ApiResult<HardWare>();
             using (var db = new MDDbContext())
             {
-                hardWare.Create();
+                //hardWare.Create();
                 db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Added;
                 db.HardWares.Add(hardWare);
                 db.SaveChanges();
@@ -75,7 +75,7 @@ namespace MedicalDistributionSystem.Controllers
                 var queryHardWare = db.HardWares.Find(hardWareId);
                 queryHardWare.UsedSeconds = hardWare.UsedSeconds;
                 queryHardWare.UseableSeconds = hardWare.UseableSeconds;
-                queryHardWare.Modify();
+                //queryHardWare.Modify();
                 db.Entry<HardWare>(queryHardWare).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
@@ -94,7 +94,7 @@ namespace MedicalDistributionSystem.Controllers
             using (var db = new MDDbContext())
             {
                 var hardWare = db.HardWares.Find(hardWareId);
-                hardWare.Remove();
+                //hardWare.Remove();
                 db.Entry<HardWare>(hardWare).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
                 result.Data = true;

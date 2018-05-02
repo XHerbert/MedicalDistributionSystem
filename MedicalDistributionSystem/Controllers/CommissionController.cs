@@ -51,7 +51,7 @@ namespace MedicalDistributionSystem.Controllers
             ApiResult<Commission> result = new ApiResult<Commission>();
             using (var db = new MDDbContext())
             {
-                commission.Create();
+                //commission.Create();
                 db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Added;
                 db.Commissions.Add(commission);
                 db.SaveChanges();
@@ -73,7 +73,7 @@ namespace MedicalDistributionSystem.Controllers
             using (var db = new MDDbContext())
             {
                 var commission = db.Commissions.Find(commissionId);
-                commission.Remove();
+                //commission.Remove();
                 db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
                 result.Data = true;

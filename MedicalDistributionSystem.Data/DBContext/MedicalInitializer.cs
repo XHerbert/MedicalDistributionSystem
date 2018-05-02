@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MedicalDistributionSystem.Data.DBContext
 {
-    public class MedicalChangesInitializer: System.Data.Entity.DropCreateDatabaseIfModelChanges<MDDbContext>
+    public class MedicalChangesInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<MDDbContext>
     {
         public override void InitializeDatabase(MDDbContext context)
         {
@@ -34,23 +34,25 @@ namespace MedicalDistributionSystem.Data.DBContext
                 new Proxy()
                 {
                     ProxyName="Admin",
-                    Mobile= "17718389925",
+                    Mobile= "18000000000",
                     Password="******",
                     Province="北京",
                     City="北京",
                     ProxyCode="",
                     CurrentMoney = 100,
                     BackMoneyPercent = 0.5d,
-                    ProxyLevel=(int)Medical.ProxyLevelEnums.LevelOne,
-                    CreatorUserId=0
+                    ProxyLevel=(int)Medical.ProxyLevelEnums.LevelSuper,
+                    CreatorUserId=0,
+                    CreatorTime = DateTime.Now,
+
                 }
             };
-            proxies.ForEach(p=> { context.Proxies.Add(p); });
+            proxies.ForEach(p => { context.Proxies.Add(p); });
             context.SaveChanges();
         }
     }
 
-    public class MedicalNotExistInitializer: System.Data.Entity.CreateDatabaseIfNotExists<MDDbContext>
+    public class MedicalNotExistInitializer : System.Data.Entity.CreateDatabaseIfNotExists<MDDbContext>
     {
         public override void InitializeDatabase(MDDbContext context)
         {
@@ -72,7 +74,7 @@ namespace MedicalDistributionSystem.Data.DBContext
                 new Proxy()
                 {
                     ProxyName="Admin",
-                    Mobile= "17718389925",
+                    Mobile= "18000000000",
                     Password="******",
                     Province="北京",
                     City="北京",
@@ -80,7 +82,8 @@ namespace MedicalDistributionSystem.Data.DBContext
                     CurrentMoney = 0,
                     BackMoneyPercent = 0.5d,
                     ProxyLevel=(int)Medical.ProxyLevelEnums.LevelSuper,
-                    CreatorUserId=0
+                    CreatorUserId=0,
+                    CreatorTime = DateTime.Now,
                 }
             };
             proxies.ForEach(p => { context.Proxies.Add(p); });

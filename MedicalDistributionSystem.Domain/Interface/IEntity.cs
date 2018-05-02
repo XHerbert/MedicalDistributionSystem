@@ -8,29 +8,26 @@ namespace MedicalDistributionSystem.Domain.Interface
 {
     public class IEntity<TEntity>
     {
-        public void Create()
+        public void Create(int Id)
         {
             var entity = this as ICreationAudited;
-            //var LoginInfo = OperatorProvider.Provider.GetCurrent();
-            //if (LoginInfo != null)
-            //{
-            //    entity.CreatorUserId = LoginInfo.UserId;
-            //}
+            entity.CreatorUserId = Id;
             entity.CreatorTime = DateTime.Now;
         }
 
-        public void Modify()
+        public void Modify(int Id)
         {
             var entity = this as IModificationAudited;
             entity.LastModifyTime = DateTime.Now;
-            entity.LastModifyUserId = 0;
+            entity.LastModifyUserId = Id;
         }
 
-        public void Remove()
+        public void Remove(int Id)
         {
             var entity = this as IDeleteAudited;
             entity.DeleteMark = true;
             entity.DeleteTime = DateTime.Now;
+            entity.DeleteUserId = Id;
         }
     }
 }

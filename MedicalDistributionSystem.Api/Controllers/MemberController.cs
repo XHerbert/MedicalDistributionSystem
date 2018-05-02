@@ -85,7 +85,7 @@ namespace MedicalDistributionSystem.Api.Controllers
             ApiResult<Member> result = new ApiResult<Member>();
             using (var db = new MDDbContext())
             {
-                member.Create();
+                member.Create(member.ProxyId);
                 db.Entry<Member>(member).State = System.Data.Entity.EntityState.Added;
                 db.Members.Add(member);
                 db.SaveChanges();
@@ -113,7 +113,17 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                member.Remove();
+
+                var medicalRecords = db.MedicalRecords.Where(mr => mr.MemberId == memberId && mr.DeleteMark == false);
+                if (medicalRecords.Any())
+                {
+                    result.Data = false;
+                    result.Code = 401;
+                    result.IsSuccess = false;
+                    result.Msg = Resource.REFERENCE_EXISTS;
+                    return result;
+                }
+                member.Remove(member.ProxyId);
                 db.Entry<Member>(member).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }

@@ -51,7 +51,7 @@ namespace MedicalDistributionSystem.Controllers
             ApiResult<MedicalRecord> result = new ApiResult<MedicalRecord>();
             using (var db = new MDDbContext())
             {
-                medicalRecord.Create();
+                //medicalRecord.Create();
                 db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Added;
                 db.MedicalRecords.Add(medicalRecord);
                 db.SaveChanges();
@@ -73,7 +73,7 @@ namespace MedicalDistributionSystem.Controllers
             using (var db = new MDDbContext())
             {
                 var medicalRecord = db.MedicalRecords.Find(medicalRecordId);
-                medicalRecord.Remove();
+                //medicalRecord.Remove();
                 db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Deleted;
                 db.SaveChanges();
                 result.Data = true;

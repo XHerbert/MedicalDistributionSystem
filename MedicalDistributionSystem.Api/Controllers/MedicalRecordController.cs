@@ -1,6 +1,8 @@
 ﻿using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
+using MedicalDistributionSystem.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Transactions;
@@ -80,31 +82,39 @@ namespace MedicalDistributionSystem.Api.Controllers
                 {
                     try
                     {
-                        medicalRecord.Create();
+                        medicalRecord.Create(medicalRecord.MemberId);
                         db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Added;
                         db.MedicalRecords.Add(medicalRecord);
-                        db.SaveChanges();
-
+                        //db.SaveChanges();
+                        var member = db.Members.Find(medicalRecord.MemberId);
                         //获取当前会员的上级代理
-                        var p = db.Proxies.Find(medicalRecord.CreatorUserId);
-                        double percent = p.BackMoneyPercent;
-                        switch (p.ProxyLevel)
-                        {
-                            case 1:
-                                break;
-                            case 2:
-                                break;
-                            case 3:
-                                break;
-                            case 4:
-                                break;
-                            default:
-                                break;
-                        }
+                        //一般会员的上级代理拿到的是会员消费的全额 即下属会员消费100%
+                        var proxy = db.Proxies.Find(member.ProxyId);
+                        var parentProxy = db.Proxies.Find(proxy.CreatorUserId);
+                        
+                        //db.SaveChanges();
+                        //佣金所属者 创建佣金流水记录
+                        Commission commission = new Commission();
+                        commission.Create(proxy.Id);
+                        commission.DeleteMark = false;
+                        commission.DeleteTime = null;
+                        commission.DeleteUserId = 0;
+                        commission.IncomeType = (int)Medical.IncomeType.FromMember;
+                        commission.LastModifyTime = null;
+                        commission.LastModifyUserId = 0;
+                        commission.Money = medicalRecord.Fee - Calculate(db, parentProxy, medicalRecord.Fee);//会员消费金额
+                        commission.ProxyId = proxy.Id;
+                        db.Commissions.Add(commission);
+                        db.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Added;
+
+                        proxy.CurrentMoney += commission.Money;
+                        proxy.Modify(parentProxy.Id);
+                        db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Modified;
+                        db.SaveChanges();
                         ////必须调用.Complete()，不然数据不会保存
                         trans.Complete();
                     }
-                    catch (System.Exception e)
+                    catch (Exception e)
                     {
                         ////出了using代码块如果还没调用Complete()，所有操作就会自动回滚
                     }
@@ -133,11 +143,53 @@ namespace MedicalDistributionSystem.Api.Controllers
                     result.Msg = Resource.ENTITY_NOT_FOUND;
                     return result;
                 }
-                medicalRecord.Remove();
+                medicalRecord.Remove(0);
                 db.Entry<MedicalRecord>(medicalRecord).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
             }
             return result;
+        }
+
+        /// <summary>
+        /// 递归计算抽成
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="proxy"></param>
+        /// <param name="money"></param>
+        /// <returns>返回抽成金额</returns>
+        private decimal Calculate(MDDbContext context,Proxy proxy,decimal money)
+        {
+            var parent = context.Proxies.Find(proxy.CreatorUserId);
+            var choucheng = (decimal)proxy.BackMoneyPercent * money;
+            var realChoucheng = parent==null?choucheng : choucheng - (choucheng * (decimal)parent.BackMoneyPercent);
+            proxy.CurrentMoney += realChoucheng;
+            proxy.LastModifyTime = DateTime.Now;
+            context.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Modified;
+            context.SaveChanges();
+            //递归创建佣金流水
+            Commission commission = new Commission();
+            commission.Create(proxy.Id);
+            commission.DeleteMark = false;
+            commission.DeleteTime = null;
+            commission.DeleteUserId = 0;
+            commission.IncomeType = (int)Medical.IncomeType.FromProxy;
+            commission.LastModifyTime = null;
+            commission.LastModifyUserId = 0;
+            commission.Money = realChoucheng;//抽成金额
+            commission.ProxyId = proxy.Id;
+            context.Commissions.Add(commission);
+            context.Entry<Commission>(commission).State = System.Data.Entity.EntityState.Added;
+            if (proxy.ProxyLevel != (int)Medical.ProxyLevelEnums.LevelSuper)
+            {
+                var parentProxy = context.Proxies.Find(proxy.CreatorUserId);
+                //var subChoucheng = Calculate(context, parentProxy, choucheng);
+                Calculate(context, parentProxy, choucheng);
+                return choucheng;
+            }
+            else
+            {
+                return choucheng;
+            }
         }
     }
 }
