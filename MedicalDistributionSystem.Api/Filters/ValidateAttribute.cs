@@ -1,4 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿//==============================================================
+//  作者：徐洪波  (xuhb@foxmail.com)
+//  时间：2018/5/3 11:52:45
+//  文件名：LoginController
+//  版本：V1.0.0 
+//  说明：
+//==============================================================
+using MedicalDistributionSystem.Data;
+using Newtonsoft.Json;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http.Controllers;
@@ -6,7 +15,7 @@ using System.Web.Http.Filters;
 
 namespace MedicalDistributionSystem.Api.Filters
 {
-    public class ValidateAttribute: ActionFilterAttribute
+    public class ValidateAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(HttpActionContext actionContext)
         {
@@ -18,23 +27,30 @@ namespace MedicalDistributionSystem.Api.Filters
             }
             else
             {
-                var tokenKeyvalue = actionContext.Request.Headers.Where(p => p.Key == "Token").FirstOrDefault();
+                var tokenKeyvalue = actionContext.Request.Headers.Where(p => p.Key.ToLower() == "token").FirstOrDefault();
                 if (!Common.Infrastructure.IsTestEnvironment())
                 {
-                    if (tokenKeyvalue.Value != null)
+                    if (tokenKeyvalue.Value != null && tokenKeyvalue.Value.Count() > 0)
                     {
-
-
+                        string sqlQuery = $"SELECT TOP 1 Token FROM dbo.AccountToken WHERE Token='{tokenKeyvalue.Value.FirstOrDefault()}' AND DeleteMark =0";
+                        using (var db = new MDDbContext())
+                        {
+                            DbRawSqlQuery<string> res = db.Database.SqlQuery<string>(sqlQuery);
+                            if (res.Count() == 0 || string.IsNullOrEmpty(res.First()))
+                            {
+                                actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
+                                actionContext.Response.ReasonPhrase = "Token是假的，不允许访问";
+                                return;
+                            }
+                        }
                     }
                     else
                     {
                         actionContext.Response = new System.Net.Http.HttpResponseMessage(System.Net.HttpStatusCode.Forbidden);
                         actionContext.Response.ReasonPhrase = "没有Token，不允许访问";
-                        //actionContext.Response.Content = 
                         return;
                     }
                 }
-
                 base.OnActionExecuting(actionContext);
             }
         }

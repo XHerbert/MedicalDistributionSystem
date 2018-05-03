@@ -10,6 +10,7 @@ using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.App;
 using MedicalDistributionSystem.Domain.Enums;
+using MedicalDistributionSystem.Domain.ParamEntity;
 using System;
 using System.Linq;
 using System.Linq.Expressions;
@@ -26,18 +27,17 @@ namespace MedicalDistributionSystem.Api.Controllers
         /// <summary>
         /// 代理/会员登录
         /// </summary>
-        /// <param name="account"></param>
-        /// <param name="password"></param>
-        /// <param name="type"></param>
+        /// <param name="loginEntity"></param>
         /// <returns></returns>
-        public ApiResult<object> Login(string account,string password,int type = 1)
+        [HttpPost]
+        public ApiResult<object> Login(LoginEntity loginEntity)
         {
             ApiResult<object> result = new ApiResult<object>();
             using (var db = new MDDbContext())
             {
-                if(type == (int)Medical.AccountType.ProxyType)
+                if(loginEntity.type == (int)Medical.AccountType.ProxyType)
                 {
-                    Expression<Func<Domain.Entity.Proxy, bool>> where = p => p.DeleteMark == false && p.Mobile == account.Trim() && MD5Helper.VerifyMd5Hash(password, p.Password);
+                    Expression<Func<Domain.Entity.Proxy, bool>> where = p => p.DeleteMark == false && ((p.Mobile == loginEntity.account.Trim()) || (p.ProxyName == loginEntity.account.Trim())) && MD5Helper.VerifyMd5Hash(loginEntity.password, p.Password);
                     var proxy = db.Proxies.Where(where.Compile()).FirstOrDefault();
                     if (proxy != null)
                     {
@@ -64,9 +64,9 @@ namespace MedicalDistributionSystem.Api.Controllers
                         result.IsSuccess = false;
                     }
                 }
-                if(type == (int)Medical.AccountType.MemberType)
+                if(loginEntity.type == (int)Medical.AccountType.MemberType)
                 {
-                    var member = db.Members.Where(m => m.DeleteMark == false && m.Mobile == account.Trim() && m.Password == password).FirstOrDefault();
+                    var member = db.Members.Where(m => m.DeleteMark == false && (m.Mobile == loginEntity.account.Trim()||(m.MemberName== loginEntity.account.Trim())) && m.Password == loginEntity.password).FirstOrDefault();
                     if (member != null)
                     {
                         var token = new AccountToken();

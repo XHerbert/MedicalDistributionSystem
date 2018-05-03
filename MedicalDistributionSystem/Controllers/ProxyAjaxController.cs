@@ -1,4 +1,11 @@
-﻿using MedicalDistributionSystem.Common;
+﻿//==============================================================
+//  作者：徐洪波  (xuhb@foxmail.com)
+//  时间：2018/5/1 11:52:45
+//  文件名：LoginController
+//  版本：V1.0.0 
+//  说明：
+//==============================================================
+using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using Newtonsoft.Json;
