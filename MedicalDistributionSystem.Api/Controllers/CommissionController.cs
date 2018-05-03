@@ -6,7 +6,7 @@
 //  说明：
 //==============================================================
 
-using MedicalDistributionSystem.Result;
+using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using System.Collections.Generic;

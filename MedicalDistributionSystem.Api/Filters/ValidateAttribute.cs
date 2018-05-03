@@ -5,6 +5,7 @@
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
+using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using Newtonsoft.Json;
@@ -23,7 +24,7 @@ namespace MedicalDistributionSystem.Api.Filters
         {
             //记录请求参数
             var args = JsonConvert.SerializeObject(actionContext.ActionArguments);
-            if (Result.Infrastructure.GetConfig("OpenLog").Equals("True"))
+            if (Infrastructure.GetConfig("OpenLog").Equals("True"))
             {
                 using (var db = new MDDbContext())
                 {
@@ -43,7 +44,7 @@ namespace MedicalDistributionSystem.Api.Filters
             else
             {
                 var tokenKeyvalue = actionContext.Request.Headers.Where(p => p.Key.ToLower() == "token").FirstOrDefault();
-                if (!Result.Infrastructure.IsTestEnvironment())
+                if (!Infrastructure.IsTestEnvironment())
                 {
                     if (tokenKeyvalue.Value != null && tokenKeyvalue.Value.Count() > 0)
                     {

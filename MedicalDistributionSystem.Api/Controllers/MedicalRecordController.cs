@@ -1,4 +1,4 @@
-﻿using MedicalDistributionSystem.Result;
+﻿using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using MedicalDistributionSystem.Domain.Enums;
