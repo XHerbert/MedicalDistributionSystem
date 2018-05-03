@@ -60,5 +60,24 @@ namespace MedicalDistributionSystem.Domain.Enums
             /// </summary>
             ProxyType = 1
         }
+
+        /// <summary>
+        /// 日志类型
+        /// </summary>
+        public enum LogType
+        {
+            /// <summary>
+            /// 参数
+            /// </summary>
+            Parameter,
+            /// <summary>
+            /// 异常
+            /// </summary>
+            Exception,
+            /// <summary>
+            /// 信息
+            /// </summary>
+            Infomation
+        }
     }
 }

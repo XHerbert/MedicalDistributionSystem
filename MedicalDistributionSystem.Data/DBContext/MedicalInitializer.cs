@@ -23,23 +23,23 @@ namespace MedicalDistributionSystem.Data.DBContext
         {
             base.Seed(context);
             //初始化必要的数据库记录
-            var members = new List<Member>
-            {
+            //var members = new List<Member>
+            //{
 
-            };
-            members.ForEach(p => { context.Members.Add(p); });
-            context.SaveChanges();
+            //};
+            //members.ForEach(p => { context.Members.Add(p); });
+            //context.SaveChanges();
             var proxies = new List<Proxy>
             {
                 new Proxy()
                 {
                     ProxyName="Admin",
                     Mobile= "18000000000",
-                    Password="******",
+                    Password="123456",
                     Province="北京",
                     City="北京",
                     ProxyCode="",
-                    CurrentMoney = 100,
+                    CurrentMoney = 0,
                     BackMoneyPercent = 0.5d,
                     ProxyLevel=(int)Medical.ProxyLevelEnums.LevelSuper,
                     CreatorUserId=0,
@@ -63,19 +63,19 @@ namespace MedicalDistributionSystem.Data.DBContext
         {
             base.Seed(context);
             //初始化必要的数据库记录
-            var members = new List<Member>
-            {
+            //var members = new List<Member>
+            //{
 
-            };
-            members.ForEach(p => { context.Members.Add(p); });
-            context.SaveChanges();
+            //};
+            //members.ForEach(p => { context.Members.Add(p); });
+            //context.SaveChanges();
             var proxies = new List<Proxy>
             {
                 new Proxy()
                 {
                     ProxyName="Admin",
                     Mobile= "18000000000",
-                    Password="******",
+                    Password="123456",
                     Province="北京",
                     City="北京",
                     ProxyCode="",

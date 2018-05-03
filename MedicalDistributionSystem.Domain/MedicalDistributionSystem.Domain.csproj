@@ -45,6 +45,7 @@
     <Compile Include="Entity\Commission.cs" />
     <Compile Include="Entity\Doctor.cs" />
     <Compile Include="Entity\HardWare.cs" />
+    <Compile Include="Entity\Log.cs" />
     <Compile Include="Entity\MedicalRecord.cs" />
     <Compile Include="Entity\Member.cs" />
     <Compile Include="Entity\Proxy.cs" />

@@ -31,6 +31,10 @@ namespace MedicalDistributionSystem.Domain.Entity
         /// </summary>
         public string Password { get; set; }
         /// <summary>
+        /// 会员身份证号码
+        /// </summary>
+        public string CardID { get; set; }
+        /// <summary>
         /// 会员姓名
         /// </summary>
         public string MemberName { get; set; }

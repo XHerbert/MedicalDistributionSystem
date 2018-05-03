@@ -23,6 +23,8 @@ namespace MedicalDistributionSystem.Data
         public DbSet<Commission> Commissions { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
         public DbSet<AccountToken> AccountTokens { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<Log> Logs { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -33,6 +35,7 @@ namespace MedicalDistributionSystem.Data
             modelBuilder.Configurations.Add(new MedicalRecordMap());
             modelBuilder.Configurations.Add(new DoctorMap());
             modelBuilder.Configurations.Add(new AccountTokenMap());
+            modelBuilder.Configurations.Add(new LogMap());
         }
 
         private static string GetConnection()

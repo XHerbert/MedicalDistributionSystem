@@ -68,6 +68,7 @@
     <Compile Include="Maps\CommisionMap.cs" />
     <Compile Include="Maps\DoctorMap.cs" />
     <Compile Include="Maps\HardWareMap.cs" />
+    <Compile Include="Maps\LogMap.cs" />
     <Compile Include="Maps\MedicalRecordMap.cs" />
     <Compile Include="Maps\MemberMap.cs" />
     <Compile Include="Maps\ProxyMap.cs" />
