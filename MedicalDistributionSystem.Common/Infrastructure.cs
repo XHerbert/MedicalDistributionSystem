@@ -45,5 +45,34 @@ namespace MedicalDistributionSystem.Common
         {
             return GetConfig("TestFlag").Equals("True");
         }
+
+        /// <summary>
+        /// 获取代理级别
+        /// </summary>
+        /// <param name="ProxyLevel"></param>
+        /// <returns></returns>
+        public static string GetProxyLevel(int ProxyLevel)
+        {
+            string proxyLevel = string.Empty;
+            switch (ProxyLevel)
+            {
+
+                case 1:
+                    proxyLevel = "超级管理员";
+                    break;
+                case 2:
+                    proxyLevel = "一级代理";
+                    break;
+                case 3:
+                    proxyLevel = "二级代理";
+                    break;
+                case 4:
+                    proxyLevel = "三级代理";
+                    break;
+                default:
+                    break;
+            }
+            return proxyLevel;
+        }
     }
 }

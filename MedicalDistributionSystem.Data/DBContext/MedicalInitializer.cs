@@ -1,4 +1,5 @@
-﻿using MedicalDistributionSystem.Domain.Entity;
+﻿using MedicalDistributionSystem.Result;
+using MedicalDistributionSystem.Domain.Entity;
 using MedicalDistributionSystem.Domain.Enums;
 using System;
 using System.Collections.Generic;
@@ -23,19 +24,13 @@ namespace MedicalDistributionSystem.Data.DBContext
         {
             base.Seed(context);
             //初始化必要的数据库记录
-            //var members = new List<Member>
-            //{
-
-            //};
-            //members.ForEach(p => { context.Members.Add(p); });
-            //context.SaveChanges();
             var proxies = new List<Proxy>
             {
                 new Proxy()
                 {
                     ProxyName="Admin",
                     Mobile= "18000000000",
-                    Password="123456",
+                    Password=MD5Helper.GetMd5Hash("123456"),
                     Province="北京",
                     City="北京",
                     ProxyCode="",
@@ -63,19 +58,13 @@ namespace MedicalDistributionSystem.Data.DBContext
         {
             base.Seed(context);
             //初始化必要的数据库记录
-            //var members = new List<Member>
-            //{
-
-            //};
-            //members.ForEach(p => { context.Members.Add(p); });
-            //context.SaveChanges();
             var proxies = new List<Proxy>
             {
                 new Proxy()
                 {
                     ProxyName="Admin",
                     Mobile= "18000000000",
-                    Password="123456",
+                    Password=MD5Helper.GetMd5Hash("123456"),
                     Province="北京",
                     City="北京",
                     ProxyCode="",

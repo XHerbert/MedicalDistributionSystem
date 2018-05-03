@@ -6,7 +6,7 @@
 //  说明：
 //==============================================================
 
-using MedicalDistributionSystem.Common;
+using MedicalDistributionSystem.Result;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.App;
 using MedicalDistributionSystem.Domain.Enums;
@@ -42,7 +42,7 @@ namespace MedicalDistributionSystem.Api.Controllers
                     if (proxy != null)
                     {
                         var token = new AccountToken();
-                        token.Token = Common.Infrastructure.CreateToken();
+                        token.Token = Result.Infrastructure.CreateToken();
                         token.AccountType = (int)Medical.AccountType.ProxyType;
                         token.Account = proxy.Mobile;
                         token.CreatorTime = DateTime.Now;
@@ -70,7 +70,7 @@ namespace MedicalDistributionSystem.Api.Controllers
                     if (member != null)
                     {
                         var token = new AccountToken();
-                        token.Token = Common.Infrastructure.CreateToken();
+                        token.Token = Result.Infrastructure.CreateToken();
                         token.AccountType = (int)Medical.AccountType.MemberType;
                         token.Account = member.Mobile;
                         token.CreatorTime = DateTime.Now;

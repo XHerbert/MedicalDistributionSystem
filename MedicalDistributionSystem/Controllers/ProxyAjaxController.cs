@@ -5,7 +5,6 @@
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
-using MedicalDistributionSystem.Common;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using Newtonsoft.Json;
@@ -14,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MedicalDistributionSystem.Common;
 
 namespace MedicalDistributionSystem.Controllers
 {
@@ -47,6 +47,61 @@ namespace MedicalDistributionSystem.Controllers
             return Json(result,JsonRequestBehavior.AllowGet);
         }
 
+
+        /// <summary>
+        /// 创建代理
+        /// </summary>
+        /// <param name="proxy"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult Create(Proxy proxy)
+        {
+            ApiResult<Proxy> result = new ApiResult<Proxy>();
+            using (var db = new MDDbContext())
+            {
+                proxy.Create(0);
+                db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Added;
+                db.Proxies.Add(proxy);
+                db.SaveChanges();
+                result.Data = proxy;
+            }
+            return Json(result);
+        }
+
+        /// <summary>
+        /// 更新
+        /// </summary>
+        /// <param name="proxy"></param>
+        /// <returns></returns>
+        public ActionResult Update(Proxy proxy)
+        {
+            ApiResult<bool> result = new ApiResult<bool>();
+            using (var db = new MDDbContext())
+            {
+                
+                if (proxy != null && proxy.Id>0)
+                {
+                    var currentProxy = db.Proxies.Find(proxy.Id);
+                    currentProxy.ProxyName = proxy.ProxyName;
+                    currentProxy.Mobile = proxy.Mobile;
+                    currentProxy.Province = proxy.Province;
+                    currentProxy.City = proxy.City;
+                    currentProxy.BackMoneyPercent = proxy.BackMoneyPercent;
+                    currentProxy.Modify(proxy.CreatorUserId);
+                    db.Entry<Proxy>(currentProxy).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                    result.Data = true;
+                }
+                else
+                {
+                    result.Data = false;
+                    result.Code = 500;
+                    result.Msg = "更新异常";
+                }
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+        }
+
         /// <summary>
         /// 删除
         /// </summary>
@@ -76,6 +131,33 @@ namespace MedicalDistributionSystem.Controllers
                 }
             }
             return Json(result, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Search(Proxy proxy)
+        {
+            ApiResult<IList<Proxy>> result = new ApiResult<IList<Proxy>>();
+            using (var db = new MDDbContext())
+            {
+                var list = (from  u in db.Proxies
+                            where u.DeleteMark == false && (
+                                  u.ProxyName.Contains(proxy.ProxyName) ||
+                                  u.Mobile.Contains(proxy.Mobile)) orderby u.Id ascending select u).ToList();
+
+
+
+                if (list.Count > 0)
+                {
+                    result.Data = list;
+                    result.Count = list.Count;
+                }
+                else
+                {
+                    result.Data = new List<Proxy>();
+                    result.Code = 404;
+                    result.Msg = "没有符合条件的记录";
+                }
+            }
+            return Json(result);
         }
     }
 }

@@ -27,6 +27,10 @@ namespace MedicalDistributionSystem.Common
         /// </summary>
         public T Data { get; set; } = default(T);
         /// <summary>
+        /// 总记录数
+        /// </summary>
+        public int Count { get; set; } = 0;
+        /// <summary>
         /// 是否请求成功
         /// </summary>
         public bool IsSuccess { get; set; } = true;

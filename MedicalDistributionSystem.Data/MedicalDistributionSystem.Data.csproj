@@ -80,6 +80,12 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MedicalDistributionSystem.Common\MedicalDistributionSystem.Common.csproj">
+      <Project>{6C610281-4E03-484A-8A15-98EE7888EE01}</Project>
+      <Name>MedicalDistributionSystem.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -20,9 +20,9 @@ namespace MedicalDistributionSystem.Domain.Entity
         public string LogContent { get; set; }
         public int LogType { get; set; }
         public string LogUrl { get; set; }
-        public DateTime? CreatorTime { get; set; }
+        public DateTime? CreatorTime { get; set; } = DateTime.Now;
         public int CreatorUserId { get; set; }
-        public bool? DeleteMark { get; set; }
+        public bool? DeleteMark { get; set; } = false;
         public DateTime? DeleteTime { get; set; }
         public int DeleteUserId { get; set; }
         public DateTime? LastModifyTime { get; set; }

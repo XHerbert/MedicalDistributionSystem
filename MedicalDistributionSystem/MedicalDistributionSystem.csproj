@@ -56,6 +56,10 @@
     <Reference Include="MedicalDistributionSystem.Api">
       <HintPath>..\MedicalDistributionSystem.Api\bin\MedicalDistributionSystem.Api.dll</HintPath>
     </Reference>
+    <Reference Include="MedicalDistributionSystem.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\MedicalDistributionSystem.Common\bin\Debug\MedicalDistributionSystem.Common.dll</HintPath>
+    </Reference>
     <Reference Include="MedicalDistributionSystem.Data">
       <HintPath>..\MedicalDistributionSystem.Data\bin\Debug\MedicalDistributionSystem.Data.dll</HintPath>
     </Reference>
@@ -198,8 +202,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
-    <Compile Include="Common\ApiResult.cs" />
-    <Compile Include="Common\Common.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CommissionController.cs" />
@@ -229,7 +231,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\app.js" />
+    <Content Include="Scripts\proxy.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="configs\database.config" />
@@ -395,9 +397,14 @@
     <Content Include="Scripts\layui\font\iconfont.eot" />
     <Content Include="Scripts\layui\font\iconfont.ttf" />
     <Content Include="Scripts\layui\font\iconfont.woff" />
+    <Content Include="Views\Proxy\Edit.cshtml" />
+    <Content Include="Views\Shared\_LayoutForApp.cshtml" />
+    <Content Include="Views\Proxy\Create.cshtml" />
+    <Content Include="Views\Proxy\ViewData.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Common\" />
     <Folder Include="Views\Base\" />
     <Folder Include="Views\Commision\" />
     <Folder Include="Views\Doctor\" />

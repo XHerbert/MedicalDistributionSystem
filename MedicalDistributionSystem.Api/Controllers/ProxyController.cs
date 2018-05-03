@@ -5,7 +5,7 @@
 //  版本：V1.0.0 
 //  说明：
 //==============================================================
-using MedicalDistributionSystem.Common;
+using MedicalDistributionSystem.Result;
 using MedicalDistributionSystem.Data;
 using MedicalDistributionSystem.Domain.Entity;
 using Newtonsoft.Json;

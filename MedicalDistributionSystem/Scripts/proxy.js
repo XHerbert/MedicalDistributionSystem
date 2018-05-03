@@ -1,4 +1,4 @@
-﻿//////加载JS
+﻿//////加载JS，记得修改端口
 require.config({
     //baseUrl: 'http://localhost:26076/Scripts',
     paths: {
@@ -28,17 +28,17 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
     var $ = $ || {};
     var del = _;
     var tmp = {};
-    var app = function () { };
+    var proxy = function () { };
     //定义函数功能
-    app.prototype.pageLoad = function () {
+    proxy.prototype.pageLoad = function () {
         var $this = this;
         //common.ajax();
         //开始绑定事件
-        /*
-        $("#submitBtn").bind("click", function () {
+        
+        $("#submitCreate").bind("click", function () {
             var data = {};
             data.data = $("form").serialize();
-            data.url = "/Admin/Create";
+            data.url = "/ProxyAjax/Create";
             data.type = "POST",
             data.successCallBack = $this.successCallBack;
             data.errorCallBack = $this.errorCallBack;
@@ -49,15 +49,35 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
 
         $("#submitUpdate").bind("click", function () {
             var data = {};
-            data.data = $("form").serialize();
-            data.url = "/Admin/Update";
+            data.data = $("#targetForm").serialize();
+            data.url = "/ProxyAjax/Update";
             data.type = "POST",
             data.successCallBack = $this.successUpdateCallBack;
             data.errorCallBack = $this.errorCallBack;
             //发送请求
             common.ajax(data.url, data.data, data.type, data.successCallBack, data.errorCallBack);
         });
-        */
+
+        //弹出新建窗口
+        $("#create").bind("click", function () {
+            var idx = layer.open({
+                type: 2,
+                title: "创建代理人信息",
+                skin: 'layui-layer-rim',
+                area: ['1240px', '643px'],
+                shade: 0.5,
+                fixed: false,
+                maxmin: true,
+                content: ['/Proxy/Create', 'no']
+            });
+        });
+        
+        $("#search").bind("click", function () {
+            layer.msg("search");
+        });
+
+
+
         //加载列表数据并绑定操作事件
         layui.use('table', function () {
             var table = layui.table;
@@ -71,8 +91,8 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
               , page: true
               , cols: [[
                   { field: 'Id', title: 'Id', sort: true, width: 80, fixed: 'left' }
-                , { field: 'ProxyName', title: '代理姓名', width: 280 }
-                , { field: 'Mobile', title: '手机号'  }
+                , { field: 'ProxyName', title: '代理姓名', width: 180 }
+                , { field: 'Mobile', title: '手机号', width: 150 }
                 , { field: 'Province', title: '省份', width:150 }
                 , { field: 'City', title: '城市',width:150 }
                 , { field: 'CurrentMoney', title: '当前余额', minWidth: 150,width:150 }
@@ -120,7 +140,7 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                     }, style: "color:#777 ;font-weight:bold"
                 },
                 {
-                    field: 'CreatorTime', title: '创建时间', width: 190,
+                    field: 'CreatorTime', title: '创建时间', width: 170,
                     templet: function (d) {
                         var stamp = d.CreatorTime.replace(/[^0-9]/ig, "");
                         var date = new Date();
@@ -129,7 +149,7 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                     }
                 },
                 {
-                    field: 'DeleteMark', title: '有效', width: 60,
+                    field: 'DeleteMark', title: '有效', width: 100,
                     templet: function (d) {
                         if (d.DeleteMark == true) {
                             return '无效'
@@ -138,7 +158,7 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                         }
                     }, style: "color:#5FB878 ;"
                 },
-                { fixed: 'right', title: "操作", align: 'center', toolbar: '#toolbar', width: 190 }
+                { fixed: 'right', title: "操作", align: 'center', toolbar: '#toolbar' }
               ]]
             , response: {
                     statusName: 'Code' //数据状态的字段名称，默认：code
@@ -159,10 +179,10 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                         type: 2,
                         title: false,
                         skin: 'layui-layer-rim',
-                        area: ['503px', '332px'],
+                        area: ['1240px', '693px'],
                         shade: 0.5,
                         closeBtn: 1,
-                        content: [data.Images,'no']
+                        content: ['/Proxy/ViewData?id=' + data.Id,'no']
                     });
 
                 } else if (layEvent === 'del') { //删除
@@ -177,13 +197,13 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                 } else if (layEvent === 'edit') { //编辑
                     var idx = layer.open({
                         type: 2,
-                        title: "修改快照",
+                        title: "修改代理人信息",
                         skin: 'layui-layer-rim',
                         area: ['1240px', '693px'],
                         shade: 0.5,
                         fixed:false,
                         maxmin:true,
-                        content: ['/Admin/Edit?id='+data.Id, 'no']
+                        content: ['/Proxy/Edit?id=' + data.Id, 'no']
                     });
                     
                     //同步更新缓存对应的值
@@ -234,19 +254,21 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                 }
             });
         });
+
+
     };
 
     //发布成功回调
-    app.prototype.successCallBack = function (result) {
+    proxy.prototype.successCallBack = function (result) {
         var $this = this;
-        $this.layer.msg("发布成功", { time: 3000, icon: 6 });
+        $this.layer.msg("创建成功", { time: 3000, icon: 6 });
         setTimeout(function () {
-            window.location = "/Admin/LineList";
+            parent.window.location = "/Proxy/Index";
         }, 3000);
     },
 
     //删除成功回调
-    app.prototype.successDeleteCallBack = function (result) {
+    proxy.prototype.successDeleteCallBack = function (result) {
         if (result.Code == 200) {
             layer.msg("删除成功", { time: 3000, icon: 6 });
         } else {
@@ -255,23 +277,16 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
     }
 
     //更新成功回调
-    app.prototype.successUpdateCallBack = function (result) {
+    proxy.prototype.successUpdateCallBack = function (result) {
         var $this = this;
         if (result.Code == 200) {
-            //tmp.TitleYear  = result.Data.TitleYear;
-            //tmp.TitleMonth = result.Data.TitleMonth;
-            //tmp.TitleDay = result.Data.TitleDay;
-            //tmp.Images = result.Data.Images;
-            //tmp.CreateTime = result.Data.CreateTime;
-            //tmp.Copy = result.Data.Copy;
-            //tmp.UpdateTime = result.Data.UpdateTime;
             $this.layer.msg("修改成功", { time: 3000, icon: 6 });
             setTimeout(function () {
                 var idx = parent.layer.getFrameIndex(window.name);
                 parent.layer.close(idx);
             }, 3000);
             setTimeout(function () {
-                parent.window.location = "/Admin/LineList";
+                parent.window.location = "/Proxy/Index";
             },400);
         }
         else {
@@ -280,12 +295,12 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
     },
 
     //发生错误回调
-    app.prototype.errorCallBack = function (err) {
+    proxy.prototype.errorCallBack = function (err) {
 
     },
 
     //删除记录
-    app.prototype.delete = function (id,obj) {
+    proxy.prototype.delete = function (id, obj) {
         var $this = this;
         var data = {};
         data.data = { id: id };
@@ -297,5 +312,5 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
     }
 
     //载入页面
-    app.prototype.pageLoad();
+    proxy.prototype.pageLoad();
 });

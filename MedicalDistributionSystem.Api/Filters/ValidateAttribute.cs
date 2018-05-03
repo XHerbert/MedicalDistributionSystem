@@ -6,12 +6,14 @@
 //  说明：
 //==============================================================
 using MedicalDistributionSystem.Data;
+using MedicalDistributionSystem.Domain.Entity;
 using Newtonsoft.Json;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
+using static MedicalDistributionSystem.Domain.Enums.Medical;
 
 namespace MedicalDistributionSystem.Api.Filters
 {
@@ -21,6 +23,19 @@ namespace MedicalDistributionSystem.Api.Filters
         {
             //记录请求参数
             var args = JsonConvert.SerializeObject(actionContext.ActionArguments);
+            if (Result.Infrastructure.GetConfig("OpenLog").Equals("True"))
+            {
+                using (var db = new MDDbContext())
+                {
+                    Log currentRequest = new Log();
+                    currentRequest.LogType = (int)LogType.Parameter;
+                    currentRequest.LogUrl = actionContext.Request.RequestUri.AbsoluteUri;
+                    currentRequest.LogContent = args;
+                    db.Logs.Add(currentRequest);
+                    db.Entry<Log>(currentRequest).State = System.Data.Entity.EntityState.Added;
+                    db.SaveChanges();
+                }
+            }
             if (actionContext.ActionDescriptor.ActionName.Contains("Login"))
             {
                 base.OnActionExecuting(actionContext);
@@ -28,7 +43,7 @@ namespace MedicalDistributionSystem.Api.Filters
             else
             {
                 var tokenKeyvalue = actionContext.Request.Headers.Where(p => p.Key.ToLower() == "token").FirstOrDefault();
-                if (!Common.Infrastructure.IsTestEnvironment())
+                if (!Result.Infrastructure.IsTestEnvironment())
                 {
                     if (tokenKeyvalue.Value != null && tokenKeyvalue.Value.Count() > 0)
                     {

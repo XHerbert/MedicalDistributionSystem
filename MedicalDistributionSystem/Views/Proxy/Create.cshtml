@@ -1,0 +1,64 @@
+﻿@model MedicalDistributionSystem.Domain.Entity.Proxy
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>创建代理信息</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css" />
+    <link href="~/Scripts/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="layui-col-md8 layui-col-md-offset2" style="margin-top:50px">
+        <fieldset class="layui-elem-field layui-field-title site-title">
+            <legend><a name="nav-theme">创建代理信息</a></legend>
+        </fieldset>
+        <form class="layui-form" id="targetForm" onsubmit="return false" action="##">
+            <input type="hidden" name="Id" />
+            <div class="layui-form-item">
+                <label class="layui-form-label">代理用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" placeholder="" required name="ProxyName" lay-verify="required" value="" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">代理手机号</label>
+                <div class="layui-input-block">
+                    <input type="text" value="" name="Mobile" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">省份</label>
+                <div class="layui-input-block">
+                    <input type="text" value="" name="Province" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">城市</label>
+                <div class="layui-input-block">
+                    <input type="text" value="" name="City" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">提点</label>
+                <div class="layui-input-block">
+                    <input type="text" value="" name="BackMoneyPercent" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input col-md-10">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" id="submitCreate">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="~/Scripts/require.js" data-main="/Scripts/proxy"></script>
+    <script type="text/javascript">
+        var index = parent.layer.getFrameIndex(window.name);
+    </script>
+</body>
+</html>
