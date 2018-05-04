@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalDistributionSystem.Attribute;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +11,7 @@ namespace MedicalDistributionSystem.Controllers
     /// <summary>
     /// 主要做验签操作
     /// </summary>
+    [CustomFilter]
     public class BaseController : Controller
     {
         
