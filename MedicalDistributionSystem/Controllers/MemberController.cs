@@ -13,32 +13,15 @@ namespace MedicalDistributionSystem.Controllers
     /// <summary>
     /// 会员业务
     /// </summary>
-    [Validate]
     public class MemberController : BaseController
     {
         /// <summary>
         /// 会员列表(分页)
         /// </summary>
         /// <returns></returns>
-        [HttpGet]
-        public ActionResult Index(int pageIndex = 1,int pageSize = 10)
+        public ActionResult Index()
         {
-            ApiResult<IList<Member>> result = new ApiResult<IList<Member>>();
-            using (var db = new MDDbContext())
-            {
-                var list = (from u in db.Members where u.DeleteMark == false orderby u.Id ascending select u).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                if(list == null)
-                {
-                    result.Code = 500;
-                    result.Data = null;
-                    //result.IsSuccess = false;
-                    result.Msg = "";
-                }else
-                {
-                    //result.Data = list;
-                }
-            }
-            return Json(result,JsonRequestBehavior.AllowGet);
+            return View();
         }
 
         /// <summary>
@@ -46,33 +29,43 @@ namespace MedicalDistributionSystem.Controllers
         /// </summary>
         /// <param name="member"></param>
         /// <returns></returns>
-        [HttpPost]
-        public ActionResult Create(Member member)
+        public ActionResult Create()
         {
-            ApiResult<Member> result = new ApiResult<Member>();
-            using (var db = new MDDbContext())
-            {
-                //member.Create();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Added;
-                db.Members.Add(member);
-                db.SaveChanges();
-            }
-
-            return Json(result);
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult Delete(int memberId)
+        public ActionResult Edit(int id)
         {
-            ApiResult<bool> result = new ApiResult<bool>();
             using (var db = new MDDbContext())
             {
-                var member = db.Members.Find(memberId);
-                //member.Remove();
-                db.Entry<Member>(member).State = System.Data.Entity.EntityState.Deleted;
-                db.SaveChanges();
+                var entity = db.Members.Find(id);
+                if (entity != null)
+                {
+                    //ViewBag.ProxyLevel = Infrastructure.GetProxyLevel(entity.ProxyLevel);
+                    if (entity.CreatorUserId != 0)
+                    {
+                        ViewBag.Parent = db.Proxies.Find(entity.CreatorUserId).ProxyName;
+                    }
+                }
+                return View(entity);
             }
-            return Json(result);
+        }
+
+        public ActionResult ViewData(int id)
+        {
+            using (var db = new MDDbContext())
+            {
+                var entity = db.Members.Find(id);
+                if (entity != null)
+                {
+                    //ViewBag.ProxyLevel = Infrastructure.GetProxyLevel(entity.ProxyLevel);
+                    if (entity.CreatorUserId != 0)
+                    {
+                        ViewBag.Parent = db.Proxies.Find(entity.CreatorUserId).ProxyName;
+                    }
+                }
+                return View(entity);
+            }
         }
     }
 }

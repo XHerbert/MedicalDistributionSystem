@@ -1,0 +1,86 @@
+﻿@model MedicalDistributionSystem.Domain.Entity.Member
+@{
+    Layout = null;
+    var level = ViewBag.ProxyLevel;
+    var parentProxy = ViewBag.Parent == null ? "--" : ViewBag.Parent;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>查看会员信息</title>
+    <link rel="stylesheet" href="~/Scripts/layui/css/layui.css" />
+    <link href="~/Scripts/layui/css/modules/layer/default/layer.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="layui-col-md8 layui-col-md-offset2" style="margin-top:50px">
+        <fieldset class="layui-elem-field layui-field-title site-title">
+            <legend><a name="nav-theme">查看会员信息</a></legend>
+        </fieldset>
+        <form class="layui-form" id="targetForm" onsubmit="return false" action="##">
+            <input type="hidden" name="Id" value="@Model.Id" />
+            <div class="layui-form-item">
+                <label class="layui-form-label">会员用户名</label>
+                <div class="layui-input-block">
+                    <input type="text" placeholder="" required name="MemberName" lay-verify="required" readonly="readonly" value="@Model.MemberName" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">会员手机号</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@Model.Mobile" name="Mobile" required lay-verify="required" readonly="readonly" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">会员身份证</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@Model.CardID" name="CardID" required lay-verify="required"  readonly="readonly" placeholder="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">地址</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@Model.Location" name="Location" required lay-verify="required" placeholder="" readonly="readonly" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            @*<div class="layui-form-item">
+                <label class="layui-form-label">提点</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@Model.BackMoneyPercent" name="BackMoneyPercent" readonly="readonly" required lay-verify="required" placeholder="" autocomplete="off" class="layui-input col-md-10">
+                </div>
+            </div>*@
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-block">
+                    @if (Model.Gender == 1)
+                    {
+                        <input type="radio" name="Gender" disabled value="1" title="男" checked="">
+                        <input type="radio" name="Gender" disabled value="2" title="女">
+                    }
+                    @if (Model.Gender == 2)
+                    {
+                        <input type="radio" name="Gender" disabled value="1" title="男">
+                        <input type="radio" name="Gender" disabled value="2" title="女" checked="">
+                    }
+
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">备注</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@Model.Remark" name="ProxyLevel" required lay-verify="required" readonly="readonly" placeholder="" autocomplete="off" class="layui-input col-md-10">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上级代理</label>
+                <div class="layui-input-block">
+                    <input type="text" value="@parentProxy" name="CreatorUserId" required lay-verify="required" readonly="readonly" placeholder="" autocomplete="off" class="layui-input col-md-10">
+                </div>
+            </div>
+
+        </form>
+    </div>
+    <script src="~/Scripts/require.js" data-main="/Scripts/member"></script>
+</body>
+</html>

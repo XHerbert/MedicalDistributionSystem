@@ -31,7 +31,7 @@ namespace MedicalDistributionSystem.Common
         }
         public void AddCurrent(OperatorModel operatorModel)
         {
-            WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 60);
+            WebHelper.WriteCookie(LoginUserKey, DESEncrypt.Encrypt(operatorModel.ToJson()), 6000);
         }
         public void RemoveCurrent()
         {
