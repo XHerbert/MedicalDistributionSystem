@@ -1,6 +1,8 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutForApp.cshtml";
     ViewBag.Title = "代理列表";
+    ViewBag.UserName = Session["UserName"];
+    ViewBag.Level = Session["Level"];
 }
 
 <div style="border-radius:5px;width:98%;height:80px;margin-top:5px;margin-bottom: 5px;margin-left:auto;margin-right:auto;border:solid 1px #009688;">
@@ -33,11 +35,14 @@
             <button id="search" class="layui-btn layui-btn-radius">Search</button>
         </div>
     </div>
-    <div style="width:auto;height:auto;margin-left:10px;margin-right:auto;margin-top:20px;float:left">
-        <div class="layui-form-item">
-            <button id="create" class="layui-btn layui-btn-radius layui-btn-normal">Create</button>
+    @if (ViewBag.Level != 4)
+    {
+        <div style="width:auto;height:auto;margin-left:10px;margin-right:auto;margin-top:20px;float:left">
+            <div class="layui-form-item">
+                <button id="create" class="layui-btn layui-btn-radius layui-btn-normal">Create</button>
+            </div>
         </div>
-    </div>
+    }
 </div>
 <div style="width:98%;min-height:500px;height:500px;margin-top:5px;margin-bottom: 20px;margin-left:auto;margin-right:auto">
 

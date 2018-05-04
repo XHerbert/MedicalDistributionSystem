@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>欢迎登录</title>
+    <link href="~/Scripts/layui/css/layui.css" rel="stylesheet" />
+    <style type="text/css">
+        .top {
+            margin-top: 20%;
+            margin-left: 35%;
+        }
+
+        .input {
+            width: 350px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layui-col-md8 layui-col-md-offset2 top">
+        <form class="layui-form" id="targetForm" method="post" action="/Login/DoLogin"> @*onsubmit="return false"*@
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="text" placeholder="请输入用户名/手机号" required name="account" lay-verify="required" class="layui-input input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn" id="submitUpdate">登录</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript" src="~/Scripts/layui/layui.js"></script>
+</body>
+</html>

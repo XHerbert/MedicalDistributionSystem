@@ -17,5 +17,6 @@ namespace MedicalDistributionSystem.Common
         public static string ENTITY_NOT_FOUND = "未找到指定实体";
         public static string ACCOUNT_ERROR = "账号或密码错误";
         public static string REFERENCE_EXISTS = "存在关联实体，不能删除";
+        public static string DEFAULT_PASSWORD = "123456";
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="Entity\Log.cs" />
     <Compile Include="Entity\MedicalRecord.cs" />
     <Compile Include="Entity\Member.cs" />
+    <Compile Include="Entity\OperatorModel.cs" />
     <Compile Include="Entity\Proxy.cs" />
     <Compile Include="Enums\MedicalEnums.cs" />
     <Compile Include="Interface\ICreationAudited.cs" />

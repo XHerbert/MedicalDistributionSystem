@@ -237,6 +237,7 @@
     <Content Include="configs\database.config" />
     <Content Include="configs\log4net.config" />
     <Content Include="configs\system.config" />
+    <None Include="Properties\PublishProfiles\publish.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -401,6 +402,7 @@
     <Content Include="Views\Shared\_LayoutForApp.cshtml" />
     <Content Include="Views\Proxy\Create.cshtml" />
     <Content Include="Views\Proxy\ViewData.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -409,7 +411,6 @@
     <Folder Include="Views\Commision\" />
     <Folder Include="Views\Doctor\" />
     <Folder Include="Views\HardWare\" />
-    <Folder Include="Views\Login\" />
     <Folder Include="Views\MedicalRecord\" />
     <Folder Include="Views\Member\" />
     <Folder Include="Views\ProxyAjax\" />

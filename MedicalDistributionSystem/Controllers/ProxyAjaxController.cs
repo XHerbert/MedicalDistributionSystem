@@ -59,7 +59,10 @@ namespace MedicalDistributionSystem.Controllers
             ApiResult<Proxy> result = new ApiResult<Proxy>();
             using (var db = new MDDbContext())
             {
-                proxy.Create(0);
+                var model = OperatorProvider.Provider.GetCurrent();
+                proxy.Create(model.UserId);
+                proxy.ProxyLevel = model.Level+1;
+                proxy.Password = MD5Helper.GetMd5Hash(Resource.DEFAULT_PASSWORD);
                 db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Added;
                 db.Proxies.Add(proxy);
                 db.SaveChanges();
@@ -87,7 +90,7 @@ namespace MedicalDistributionSystem.Controllers
                     currentProxy.Province = proxy.Province;
                     currentProxy.City = proxy.City;
                     currentProxy.BackMoneyPercent = proxy.BackMoneyPercent;
-                    currentProxy.Modify(proxy.CreatorUserId);
+                    currentProxy.Modify(OperatorProvider.Provider.GetCurrent().UserId);
                     db.Entry<Proxy>(currentProxy).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                     result.Data = true;
@@ -117,7 +120,7 @@ namespace MedicalDistributionSystem.Controllers
                 {
                     var proxy = db.Proxies.Find(id);
                     proxy.DeleteMark = true;
-                    proxy.Modify(id);
+                    proxy.Modify(OperatorProvider.Provider.GetCurrent().UserId);
                     db.Entry<Proxy>(proxy).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
                     result.Data = true;

@@ -205,19 +205,6 @@ require(["jquery", "layui", "layer", "common", "deleterecord"], function ($, lay
                         maxmin:true,
                         content: ['/Proxy/Edit?id=' + data.Id, 'no']
                     });
-                    
-                    //同步更新缓存对应的值
-                    //obj.update({
-                    //    TitleYear:  '2222',
-                    //    TitleMonth:  tmp.TitleMonth,
-                    //    TitleDay:  tmp.TitleDay,
-                    //    Copy:  tmp.Copy,
-                    //    Images:  tmp.Images,
-                    //    CreateTime: tmp.CreateTime,
-                    //    UpdateTime: tmp.UpdateTime
-                    //});
-                    //还原对象
-                    tmp = {};
                 }
             });
         });
